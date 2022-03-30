@@ -2034,7 +2034,6 @@
 	master_tag = "server_access_airlock";
 	name = "interior access button";
 	pixel_x = -28;
-	pixel_y = 0;
 	req_one_access = list(61)
 	},
 /turf/simulated/floor/tiled/techfloor,
@@ -2340,12 +2339,33 @@
 	frequency = 1381;
 	master_tag = "server_access_airlock";
 	name = "exterior access button";
-	pixel_x = 0;
 	pixel_y = 26;
 	req_one_access = list(61)
 	},
 /turf/simulated/floor/tiled/techfloor,
 /area/tcommsat/chamber)
+"adO" = (
+/obj/structure/table/glass,
+/obj/item/weapon/backup_implanter{
+	pixel_y = 9
+	},
+/obj/item/weapon/backup_implanter{
+	pixel_y = 2
+	},
+/obj/item/weapon/backup_implanter{
+	pixel_y = -5
+	},
+/obj/item/weapon/backup_implanter{
+	pixel_y = -12
+	},
+/obj/effect/floor_decal/borderfloorwhite{
+	dir = 5
+	},
+/obj/effect/floor_decal/corner/paleblue/border{
+	dir = 5
+	},
+/turf/simulated/floor/tiled/white,
+/area/tether/station/dock_two)
 "adQ" = (
 /obj/machinery/computer/power_monitor{
 	dir = 4;
@@ -5598,7 +5618,7 @@
 /area/storage/tech)
 "amb" = (
 /obj/structure/table/rack/steel,
-/obj/item/weapon/circuitboard/skills{
+/obj/item/weapon/circuitboard/skills/pcu{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -21014,6 +21034,12 @@
 	},
 /turf/simulated/floor,
 /area/maintenance/substation/cargo)
+"hsf" = (
+/obj/machinery/shipsensors/fancy_shuttle,
+/turf/simulated/wall/fancy_shuttle{
+	fancy_shuttle_tag = "secbus"
+	},
+/area/shuttle/securiship/cockpit)
 "hsq" = (
 /obj/structure/catwalk,
 /obj/random/junk,
@@ -31353,29 +31379,6 @@
 /obj/machinery/status_display/supply_display,
 /turf/simulated/wall,
 /area/quartermaster/office)
-"rIz" = (
-/obj/structure/table/glass,
-/obj/item/weapon/backup_implanter{
-	pixel_y = 9
-	},
-/obj/item/weapon/backup_implanter{
-	pixel_y = 2
-	},
-/obj/item/weapon/backup_implanter{
-	pixel_y = -5
-	},
-/obj/item/weapon/backup_implanter{
-	pixel_y = -12
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/floor_decal/borderfloorwhite{
-	dir = 5
-	},
-/obj/effect/floor_decal/corner/paleblue/border{
-	dir = 5
-	},
-/turf/simulated/floor/tiled/white,
-/area/tether/station/dock_two)
 "rIA" = (
 /obj/machinery/light{
 	dir = 4
@@ -49446,7 +49449,7 @@ wbf
 btr
 fQr
 fLT
-rIz
+adO
 nRk
 odT
 fLT
@@ -53852,7 +53855,7 @@ aaa
 aaa
 aaa
 aaa
-osM
+hsf
 osM
 scB
 sJw

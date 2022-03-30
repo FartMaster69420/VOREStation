@@ -130,10 +130,13 @@
 /turf/simulated/wall/attackby(var/obj/item/weapon/W, var/mob/user)
 
 	user.setClickCooldown(user.get_attack_speed(W))
-	
+
+/*
+//As with the floors, only this time it works AND tries pushing the wall after it's done. 
 	if(!construction_stage && user.a_intent == I_HELP)
 		if(try_graffiti(user,W))
 			return
+*/
 
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
@@ -240,7 +243,7 @@
 		return
 
 	// Basic dismantling.
-	var/dismantle_toolspeed = 0
+	//var/dismantle_toolspeed = 0
 	if(isnull(construction_stage) || !reinf_material)
 
 		var/cut_delay = 60 - material.cut_delay
@@ -260,7 +263,7 @@
 		else if(istype(W,/obj/item/weapon/melee/energy/blade))
 			dismantle_sound = "sparks"
 			dismantle_verb = "slicing"
-			dismantle_toolspeed = 1
+			//dismantle_toolspeed = 1
 			cut_delay *= 0.5
 		else if(istype(W,/obj/item/weapon/pickaxe))
 			var/obj/item/weapon/pickaxe/P = W

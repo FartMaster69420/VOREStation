@@ -59,7 +59,7 @@
 	//Actual full digest modes
 	var/tmp/static/list/digest_modes = list(DM_HOLD,DM_DIGEST,DM_ABSORB,DM_DRAIN,DM_UNABSORB,DM_HEAL,DM_SHRINK,DM_GROW,DM_SIZE_STEAL,DM_EGG)
 	//Digest mode addon flags
-	var/tmp/static/list/mode_flag_list = list("Numbing" = DM_FLAG_NUMBING, "Stripping" = DM_FLAG_STRIPPING, "Leave Remains" = DM_FLAG_LEAVEREMAINS, "Muffles" = DM_FLAG_THICKBELLY, "Affect Worn Items" = DM_FLAG_AFFECTWORN, "Jams Sensors" = DM_FLAG_JAMSENSORS)
+	var/tmp/static/list/mode_flag_list = list("Numbing" = DM_FLAG_NUMBING, "Stripping" = DM_FLAG_STRIPPING, "Leave Remains" = DM_FLAG_LEAVEREMAINS, "Muffles" = DM_FLAG_THICKBELLY, "Affect Worn Items" = DM_FLAG_AFFECTWORN, "Jams Sensors" = DM_FLAG_JAMSENSORS, "Complete Absorb" = DM_FLAG_FORCEPSAY)
 	//Item related modes
 	var/tmp/static/list/item_digest_modes = list(IM_HOLD,IM_DIGEST_FOOD,IM_DIGEST)
 
@@ -130,7 +130,7 @@
 		"You feel %prey becoming part of you.")
 
 	var/list/absorb_messages_prey = list(
-		"Your feel yourself becoming part of %pred's %belly!")
+		"You feel yourself becoming part of %pred's %belly!")
 
 	var/list/unabsorb_messages_owner = list(
 		"You feel %prey reform into a recognizable state again.")
@@ -354,14 +354,23 @@
 	if (!(M in contents))
 		return 0 // They weren't in this belly anyway
 
+	if(istype(M, /mob/living/simple_mob/vore/hostile/morph/dominated_prey))
+		var/mob/living/simple_mob/vore/hostile/morph/dominated_prey/p = M
+		p.undo_prey_takeover(FALSE)
+		return 0
 	for(var/mob/living/L in M.contents)
-		L.muffled = 0
-	for(var/obj/item/weapon/holder/H in M.contents)
-		H.held_mob.muffled = 0
+		L.muffled = FALSE
+		L.forced_psay = FALSE
 
+	for(var/obj/item/weapon/holder/H in M.contents)
+		H.held_mob.muffled = FALSE
+		H.held_mob.forced_psay = FALSE
+
+	if(isliving(M))
+		var/mob/living/slip = M
+		slip.slip_protect = world.time + 25 // This is to prevent slipping back into your pred if they stand on soap or something.
 	//Place them into our drop_location
 	M.forceMove(drop_location())
-
 	items_preserved -= M
 
 	//Special treatment for absorbed prey
@@ -371,9 +380,12 @@
 		if(ML.client)
 			ML.stop_sound_channel(CHANNEL_PREYLOOP) //Stop the internal loop, it'll restart if the isbelly check on next tick anyway
 		if(ML.muffled)
-			ML.muffled = 0
+			ML.muffled = FALSE
+		if(ML.forced_psay)
+			ML.forced_psay = FALSE
 		if(ML.absorbed)
 			ML.absorbed = FALSE
+			handle_absorb_langs(ML, owner)
 			if(ishuman(M) && ishuman(OW))
 				var/mob/living/carbon/human/Prey = M
 				var/mob/living/carbon/human/Pred = OW
@@ -416,6 +428,9 @@
 
 	for(var/mob/living/M in contents)
 		M.updateVRPanel()
+
+	if(prey.ckey)
+		GLOB.prey_eaten_roundstat++
 
 // Get the line that should show up in Examine message if the owner of this belly
 // is examined.   By making this a proc, we not only take advantage of polymorphism,
@@ -676,6 +691,11 @@
 	absorb_alert_prey = replacetext(absorb_alert_prey, "%countprey", absorbed_count)
 
 	M.absorbed = TRUE
+	if(M.ckey)
+		handle_absorb_langs(M, owner)
+
+		GLOB.prey_absorbed_roundstat++
+
 	to_chat(M, "<span class='notice'>[absorb_alert_prey]</span>")
 	to_chat(owner, "<span class='notice'>[absorb_alert_owner]</span>")
 	if(M.noisy) //Mute drained absorbee hunger if enabled.
@@ -741,6 +761,7 @@
 	unabsorb_alert_prey = replacetext(unabsorb_alert_prey, "%countprey", absorbed_count)
 
 	M.absorbed = FALSE
+	handle_absorb_langs(M, owner)
 	to_chat(M, "<span class='notice'>[unabsorb_alert_prey]</span>")
 	to_chat(owner, "<span class='notice'>[unabsorb_alert_owner]</span>")
 
@@ -751,6 +772,13 @@
 	owner.updateVRPanel()
 	if(isanimal(owner))
 		owner.update_icon()
+
+/////////////////////////////////////////////////////////////////////////
+/obj/belly/proc/handle_absorb_langs()
+	owner.absorb_langs()
+
+////////////////////////////////////////////////////////////////////////
+
 
 //Digest a single item
 //Receives a return value from digest_act that's how much nutrition
