@@ -18,7 +18,7 @@
 
 /obj/structure/reagent_dispensers/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	src.add_fingerprint(user)
-	if (W.get_tool_quality(TOOL_WRENCH))
+	if (W.is_wrench())
 		user.visible_message("[user] wrenches [src]'s faucet [faucet ? "closed" : "open"].", \
 			"You wrench [src]'s faucet [faucet ? "closed" : "open"]")
 		faucet = !faucet
@@ -155,13 +155,12 @@
 		if(!QDELETED(src))
 			qdel(src)
 
-<<<<<<< HEAD
 /*
  * Tanks
  */
 
 //Water
-=======
+//=======
 /obj/structure/reagent_dispensers/fire_act(datum/gas_mixture/air, temperature, volume)
 	if (faucet)
 		rupture()
@@ -177,7 +176,7 @@
 	amount_per_transfer_from_this = 10
 
 //Dispensers
->>>>>>> 6996e46ed42... Reagent Geysers, Pump Fixing, Puddles. (#8268)
+//>>>>>>> 6996e46ed42... Reagent Geysers, Pump Fixing, Puddles. (#8268)
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
 	desc = "A water tank."
@@ -290,7 +289,6 @@
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	src.add_fingerprint(user)
-<<<<<<< HEAD
 	if (W.is_wrench())
 		user.visible_message("[user] wrenches [src]'s faucet [modded ? "closed" : "open"].", \
 			"You wrench [src]'s faucet [modded ? "closed" : "open"]")
@@ -300,9 +298,7 @@
 			message_admins("[key_name_admin(user)] opened fueltank at [loc.loc.name] ([loc.x],[loc.y],[loc.z]), leaking fuel. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>)")
 			log_game("[key_name(user)] opened fueltank at [loc.loc.name] ([loc.x],[loc.y],[loc.z]), leaking fuel.")
 			leak_fuel(amount_per_transfer_from_this)
-=======
 
->>>>>>> 6996e46ed42... Reagent Geysers, Pump Fixing, Puddles. (#8268)
 	if (istype(W,/obj/item/device/assembly_holder))
 		if (rig)
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
@@ -520,8 +516,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
 
-<<<<<<< HEAD
-=======
 /obj/structure/reagent_dispensers/virusfood
 	name = "Virus Food Dispenser"
 	desc = "A dispenser of virus food. Yum."
@@ -546,7 +540,6 @@
 	. = ..()
 	reagents.add_reagent("sacid", 1000)
 
->>>>>>> 6996e46ed42... Reagent Geysers, Pump Fixing, Puddles. (#8268)
 //Cooking oil refill tank
 /obj/structure/reagent_dispensers/cookingoil
 	name = "cooking oil tank"
