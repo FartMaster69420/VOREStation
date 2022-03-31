@@ -163,6 +163,7 @@
 			to_chat(user, "<span class='notice'>There is a power cell already installed.</span>")
 			return FALSE
 		user.drop_from_inventory(W, src)
+		cell = W
 		to_chat(user, "<span class='notice'>You insert the power cell.</span>")
 
 	else

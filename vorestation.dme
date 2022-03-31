@@ -3670,6 +3670,7 @@
 #include "code\modules\reagents\reagents\other_vr.dm"
 #include "code\modules\reagents\reagents\toxins.dm"
 #include "code\modules\reagents\reagents\vore_vr.dm"
+#include "code\modules\reagents\structures\geyser.dm"
 #include "code\modules\recycling\conveyor2.dm"
 #include "code\modules\recycling\disposal-construction.dm"
 #include "code\modules\recycling\disposal.dm"

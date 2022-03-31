@@ -76,7 +76,8 @@
 /obj/structure/reagent_dispensers/Move()
 	. = ..()
 	if (. && faucet)
-		leak(amount_per_transfer_from_this / 5 / reagents.get_viscosity())
+		if(reagents.total_volume > 0)
+			leak(amount_per_transfer_from_this / 5 / reagents.get_viscosity())
 
 /obj/structure/reagent_dispensers/proc/leak(amount)
 	if (reagents.total_volume <= 0)
@@ -235,7 +236,7 @@
 /obj/structure/reagent_dispensers/foam/Initialize()
 	. = ..()
 	reagents.add_reagent("firefoam",1000)
-
+/* VoreEdit, removed as we don't use He3 for anything and I'm too lazy to find the sprite.
 //Helium3
 /obj/structure/reagent_dispensers/he3
 	name = "/improper He3 tank"
@@ -246,7 +247,7 @@
 /obj/structure/reagent_dispenser/he3/Initialize()
 	..()
 	reagents.add_reagent("helium3",1000)
-
+*/
 /*
  * Misc
  */

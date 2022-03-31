@@ -21,8 +21,8 @@
 
 	var/icon/reagent_overlay_icon
 
-	var/datum/effect_system/smoke_spread/chem/Smoke
-
+	//var/datum/effect_system/smoke_spread/chem/Smoke
+	var/datum/effect/effect/system/smoke_spread/chem/Smoke //VORE Edit, Why. WHY IS IT DIFFERENT?
 /obj/structure/geyser/Initialize()
 	. = ..()
 

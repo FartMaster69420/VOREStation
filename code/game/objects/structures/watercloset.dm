@@ -123,7 +123,7 @@
 					GM.adjustBruteLoss(5)
 			else
 				to_chat(user, "<span class='notice'>You need a tighter grip.</span>")
-	
+
 
 /obj/structure/urinal
 	name = "urinal"
@@ -264,6 +264,11 @@
 	reagents.splash(O, 10)
 
 /obj/machinery/shower/process()
+	var/obj/effect/decal/cleanable/chempuddle/to_drain = locate() in get_turf(src)
+	if(to_drain)
+		if(!QDELETED(to_drain))
+			qdel(to_drain)
+
 	if(!on) return
 	for(var/atom/movable/AM in loc)
 		if(AM.simulated)
