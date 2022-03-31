@@ -164,7 +164,7 @@
 			log_game("[key_name(user)] triggered a fueltank explosion with a welding tool.")
 			to_chat(user, "<span class='danger'>You begin welding on the fueltank and with a moment of lucidity you realize, this might not have been the smartest thing you've ever done.</span>")
 			var/obj/structure/reagent_dispensers/fueltank/tank = O
-			tank.explode()
+			tank.rupture()
 			return
 	if (src.welding)
 		remove_fuel(1)

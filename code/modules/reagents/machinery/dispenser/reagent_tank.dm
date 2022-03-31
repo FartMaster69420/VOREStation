@@ -117,7 +117,7 @@
 			message_admins("[key_name_admin(Proj.firer)] shot reagent tank at [loc.loc.name] ([loc.x],[loc.y],[loc.z]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>).")
 			log_game("[key_name(Proj.firer)] shot reagent tank at [loc.loc.name] ([loc.x],[loc.y],[loc.z]).")
 
-		if(Proj.sharp || (istype(Proj, /obj/item/projectile/beam) && !Proj.damage))
+		if(Proj.sharp || (istype(Proj, /obj/item/projectile/beam) && Proj.damage))
 			rupture()
 
 /obj/structure/reagent_dispensers/ex_act()
@@ -127,23 +127,32 @@
 	rupture()
 
 /obj/structure/reagent_dispensers/proc/rupture()
-	var/severity = 1
 	var/violent = FALSE
 
 	if (reagents.total_volume > 500)
-		severity = 3
 		reagents.trans_to_turf(get_turf(src), reagents.total_volume / 5)
 	else if (reagents.total_volume > 100)
-		severity = 2
 		reagents.trans_to_turf(get_turf(src), reagents.total_volume / 3)
 	else if (reagents.total_volume > 50)
-		severity = 1
 		reagents.trans_to_turf(get_turf(src), reagents.total_volume / 2)
 
-	if(reagents.has_any_reagent(list("phoron","fuel","hydrophoron")))
+	var/list/explodium = list("phoron","fuel","hydrophoron")
+	if(reagents.has_any_reagent(explodium))
 		violent = TRUE
 
 	if(violent)
+		var/severity = 1
+		var/fuelvolume = 0
+		for(var/ID in explodium)
+			fuelvolume += reagents.get_reagent_amount(ID)
+
+		if(fuelvolume >= 500)
+			severity = 3
+		else if(fuelvolume >= 100)
+			severity = 2
+		else if(fuelvolume >= 50)
+			severity = 1
+
 		switch(severity)
 			if(3)
 				explosion(get_turf(src),1,2,4)
@@ -155,12 +164,12 @@
 		if(!QDELETED(src))
 			qdel(src)
 
+
 /*
  * Tanks
  */
 
 //Water
-//=======
 /obj/structure/reagent_dispensers/fire_act(datum/gas_mixture/air, temperature, volume)
 	if (faucet)
 		rupture()
@@ -176,7 +185,6 @@
 	amount_per_transfer_from_this = 10
 
 //Dispensers
-//>>>>>>> 6996e46ed42... Reagent Geysers, Pump Fixing, Puddles. (#8268)
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
 	desc = "A water tank."
@@ -248,21 +256,21 @@
 	desc = "An open-topped barrel full of nasty-looking liquid."
 	icon = 'icons/obj/objects_vr.dmi'
 	icon_state = "barrel"
-	modded = TRUE
+	//modded = TRUE
 
 /obj/structure/reagent_dispensers/fueltank/barrel/two
 	name = "explosive barrel"
 	desc = "A barrel with warning labels painted all over it."
 	icon = 'icons/obj/objects_vr.dmi'
 	icon_state = "barrel2"
-	modded = FALSE
+	//modded = FALSE
 
 /obj/structure/reagent_dispensers/fueltank/barrel/three
 	name = "fuel barrel"
 	desc = "An open-topped barrel full of nasty-looking liquid."
 	icon = 'icons/obj/objects_vr.dmi'
 	icon_state = "barrel3"
-	modded = FALSE
+	//modded = FALSE
 
 /obj/structure/reagent_dispensers/fueltank/barrel/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (W.is_wrench()) //can't wrench it shut, it's always open
@@ -290,14 +298,15 @@
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	src.add_fingerprint(user)
 	if (W.is_wrench())
-		user.visible_message("[user] wrenches [src]'s faucet [modded ? "closed" : "open"].", \
-			"You wrench [src]'s faucet [modded ? "closed" : "open"]")
-		modded = modded ? 0 : 1
+		user.visible_message("[user] wrenches [src]'s faucet [faucet ? "closed" : "open"].", \
+			"You wrench [src]'s faucet [faucet ? "closed" : "open"]")
+		faucet = faucet ? 0 : 1
 		playsound(src, W.usesound, 75, 1)
-		if (modded)
+		if (faucet)
 			message_admins("[key_name_admin(user)] opened fueltank at [loc.loc.name] ([loc.x],[loc.y],[loc.z]), leaking fuel. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>)")
 			log_game("[key_name(user)] opened fueltank at [loc.loc.name] ([loc.x],[loc.y],[loc.z]), leaking fuel.")
-			leak_fuel(amount_per_transfer_from_this)
+			//leak_fuel(amount_per_transfer_from_this)
+			leak(amount_per_transfer_from_this)
 
 	if (istype(W,/obj/item/device/assembly_holder))
 		if (rig)
