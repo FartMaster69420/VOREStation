@@ -1,7 +1,7 @@
 "a" = (/turf/unsimulated/wall/planetary/sif,/area/offmap)
 "B" = (/turf/snow/snow2,/area/offmap)
-"I" = (/turf/unsimulated/floor/sky,/area)
-"Z" = (/obj/effect/shuttle_landmark/automatic{landmark_tag = "virgo_5"; name = "v5 Landing"},/turf/unsimulated/floor/sky,/area)
+"I" = (/turf/unsimulated/floor/sky{skyfall_levels = 1},/area)
+"Z" = (/obj/effect/shuttle_landmark/automatic{landmark_tag = "virgo_5"; name = "v5 Landing"},/turf/unsimulated/floor/sky{skyfall_levels = 1},/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
