@@ -12,7 +12,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	var/obj/item/loaded_item = null
 	var/decon_mod = 0
 	var/busy = FALSE
-	circuit = /obj/item/electronics/circuitboard/destructive_analyzer
+	circuit = /obj/item/weapon/circuitboard/destructive_analyzer
 
 	idle_power_usage = 30
 	active_power_usage = 2500
@@ -26,7 +26,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 /obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
 	var/T = 0
-	for(var/obj/item/stock_parts/S in src)
+	for(var/obj/item/weapon/stock_parts/S in src)
 		T += S.rating
 	decon_mod = T * 0.1
 
@@ -38,63 +38,47 @@ Note: Must be placed within 3 tiles of the R&D Console
 	else
 		icon_state = "d_analyzer"
 
-/obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/I, mob/user)
+/obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/O, mob/user)
 	if(busy)
-		to_chat(user, SPAN_NOTICE("\The [src] is busy right now."))
+		to_chat(user, "<span class='notice'>\The [src] is busy right now.</span>")
 		return
 	if(loaded_item)
-		to_chat(user, SPAN_NOTICE("There is something already loaded into \the [src]."))
+		to_chat(user, "<span class='notice'>There is something already loaded into \the [src].</span>")
+		return 1
+	if(default_deconstruction_screwdriver(user, O))
+		if(linked_console)
+			linked_console.linked_destroy = null
+			linked_console = null
 		return
-
-	var/tool_type = I.get_tool_type(user, list(QUALITY_PRYING, QUALITY_SCREW_DRIVING), src)
-	switch(tool_type)
-
-		if(QUALITY_PRYING)
-			if(!panel_open)
-				to_chat(user, SPAN_NOTICE("You cant get to the components of \the [src], remove the cover."))
-				return
-			if(I.use_tool(user, src, WORKTIME_NORMAL, tool_type, FAILCHANCE_NORMAL, required_stat = STAT_MEC))
-				to_chat(user, SPAN_NOTICE("You remove the components of \the [src] with [I]."))
-				dismantle()
-				return
-
-		if(QUALITY_SCREW_DRIVING)
-			var/used_sound = panel_open ? 'sound/machines/Custom_screwdriveropen.ogg' :  'sound/machines/Custom_screwdriverclose.ogg'
-			if(I.use_tool(user, src, WORKTIME_NEAR_INSTANT, tool_type, FAILCHANCE_NORMAL, required_stat = STAT_MEC, instant_finish_tier = 30, forced_sound = used_sound))
-				if(linked_console)
-					linked_console.linked_destroy = null
-					linked_console = null
-				panel_open = !panel_open
-				to_chat(user, SPAN_NOTICE("You [panel_open ? "open" : "close"] the maintenance hatch of \the [src] with [I]."))
-				update_icon()
-				return
-
-		if(ABORT_CHECK)
-			return
-
-	if(default_part_replacement(I, user))
+	if(default_deconstruction_crowbar(user, O))
+		return
+	if(default_part_replacement(user, O))
 		return
 	if(panel_open)
-		to_chat(user, SPAN_NOTICE("You can't load \the [src] while it's opened."))
-		return
+		to_chat(user, "<span class='notice'>You can't load \the [src] while it's opened.</span>")
+		return 1
 	if(!linked_console)
-		to_chat(user, SPAN_NOTICE("\The [src] must be linked to an R&D console first."))
+		to_chat(user, "<span class='notice'>\The [src] must be linked to an R&D console first.</span>")
 		return
-	if(!loaded_item && istype(I))
-		if(!I.origin_tech)
-			to_chat(user, SPAN_NOTICE("This doesn't seem to have a tech origin."))
+	if(!loaded_item)
+		if(isrobot(user)) //Don't put your module items in there!
 			return
-		if(I.origin_tech.len == 0)
-			to_chat(user, SPAN_NOTICE("You cannot deconstruct this item."))
+		if(!O.origin_tech)
+			to_chat(user, "<span class='notice'>This doesn't seem to have a tech origin.</span>")
 			return
-
-		if(user.unEquip(I, src))
-			busy = TRUE
-			loaded_item = I
-			to_chat(user, SPAN_NOTICE("You add \the [I] to \the [src]."))
-			flick("d_analyzer_la", src)
-			addtimer(CALLBACK(src, .proc/reset_busy), 1 SECONDS)
-			return TRUE
+		if(O.origin_tech.len == 0)
+			to_chat(user, "<span class='notice'>You cannot deconstruct this item.</span>")
+			return
+		busy = 1
+		loaded_item = O
+		user.drop_item()
+		O.loc = src
+		to_chat(user, "<span class='notice'>You add \the [O] to \the [src].</span>")
+		flick("d_analyzer_la", src)
+		spawn(10)
+			update_icon()
+			busy = 0
+		return 1
 	return
 
 /obj/machinery/r_n_d/destructive_analyzer/proc/reset_busy()
@@ -122,8 +106,8 @@ Note: Must be placed within 3 tiles of the R&D Console
 		return
 	if(linked_console)
 		linked_console.handle_item_analysis(loaded_item)
-	for(var/mob/living/carbon/human/H in viewers(src))
-		SEND_SIGNAL(H, COMSING_DESTRUCTIVE_ANALIZER, loaded_item)
+	//for(var/mob/living/carbon/human/H in viewers(src))
+	//	SEND_SIGNAL(H, COMSING_DESTRUCTIVE_ANALIZER, loaded_item)
 	if(istype(loaded_item,/obj/item/stack))
 		var/obj/item/stack/S = loaded_item
 		if(S.amount <= 1)

@@ -11,12 +11,12 @@
 	required_tech_levels = list()
 	cost = 0
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 			/datum/design/research/circuit/mech_recharger,
 			/datum/design/research/circuit/recharge_station,
 			/datum/design/research/item/medical/robot_scanner,
 			/datum/design/research/item/mmi
-		)
+		) */
 
 //EXOSUIT BRANCH____________________________________________________________________________________________________________________________________________
 
@@ -33,7 +33,7 @@
 	required_tech_levels = list()
 	cost = 500
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 		/datum/design/research/circuit/mechfab,
 		/datum/design/research/item/exosuit/floodlight,
 		/datum/design/research/circuit/exosuit/utility,
@@ -41,7 +41,7 @@
 		/datum/design/research/item/mechfab/exosuit/chassis/cheap,
 		/datum/design/research/item/mechfab/exosuit/manipulators/cheap,
 		/datum/design/research/item/mechfab/exosuit/propulsion/cheap
-		)
+		) */
 
 /datum/technology/light_exo_components
 	name = "Light Exosuit Components"
@@ -56,12 +56,12 @@
 	required_tech_levels = list()
 	cost = 500
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 		/datum/design/research/item/mechfab/exosuit/sensors/light,
 		/datum/design/research/item/mechfab/exosuit/chassis/light,
 		/datum/design/research/item/mechfab/exosuit/manipulators/light,
 		/datum/design/research/item/mechfab/exosuit/propulsion/light
-	)
+	) */
 
 
 /datum/technology/combat_exo_components
@@ -77,12 +77,12 @@
 	required_tech_levels = list()
 	cost = 1000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 		/datum/design/research/item/mechfab/exosuit/sensors/combat,
 		/datum/design/research/item/mechfab/exosuit/chassis/combat,
 		/datum/design/research/item/mechfab/exosuit/manipulators/combat,
 		/datum/design/research/item/mechfab/exosuit/propulsion/combat
-		)
+		) */
 
 /datum/technology/mech_combat_armor
 	name = "Combat Armor"
@@ -97,9 +97,9 @@
 	required_tech_levels = list()
 	cost = 3000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 		/datum/design/research/item/mechfab/exosuit/armour/combat
-	)
+	) */
 
 /*
 /datum/technology/mech_gyrax_ultra
@@ -131,12 +131,12 @@
 	required_tech_levels = list()
 	cost = 3000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 		/datum/design/research/item/mechfab/exosuit/sensors/heavy,
 		/datum/design/research/item/mechfab/exosuit/chassis/heavy,
 		/datum/design/research/item/mechfab/exosuit/manipulators/heavy,
 		/datum/design/research/item/mechfab/exosuit/propulsion/heavy
-	)
+	) */
 
 /datum/technology/mech_propulsion_alt
 	name = "Alternative Exosuit Propulsion Systems"
@@ -151,10 +151,10 @@
 	required_tech_levels = list()
 	cost = 3000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 		/datum/design/research/item/mechfab/exosuit/propulsion/quad,
 		/datum/design/research/item/mechfab/exosuit/propulsion/tracks
-	)
+	) */
 
 /*
 /datum/technology/mech_phazon
@@ -200,10 +200,10 @@
 	required_tech_levels = list()
 	cost = 500
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 		/datum/design/research/circuit/exosuit/medical,
 		/datum/design/research/item/exosuit/sleeper
-	)
+	) */
 
 /datum/technology/mech_utility_modules
 	name = "Utility Modules"
@@ -219,7 +219,7 @@
 	required_tech_levels = list()
 	cost = 2000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 		/datum/design/research/item/exosuit/drill,
 		/datum/design/research/item/exosuit/extinguisher,
 		/datum/design/research/item/exosuit/hydraulic_clamp,
@@ -228,7 +228,7 @@
 		/datum/design/research/item/mechfab/exosuit/drillbit/steel,
 		/datum/design/research/item/mechfab/exosuit/drillbit/plasteel,
 		/datum/design/research/item/mechfab/exosuit/drillbit/diamond
-	)
+	) */
 
 /datum/technology/mech_teleporter_modules
 	name = "Gravity Catapult"
@@ -243,7 +243,7 @@
 	required_tech_levels = list()
 	cost = 5000
 
-	unlocks_designs = list(/datum/design/research/item/exosuit/gravity_catapult)
+	/* unlocks_designs = list(/datum/design/research/item/exosuit/gravity_catapult) */
 
 /datum/technology/mech_util_armor
 	name = "EM-Shielded Exosuit Armour"
@@ -261,9 +261,9 @@
 	required_tech_levels = list()
 	cost = 1000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 			/datum/design/research/item/mechfab/exosuit/armour/em
-		)
+		) */
 
 /datum/technology/mech_weaponry_modules
 	name = "Combat Systems"
@@ -281,11 +281,11 @@
 	required_tech_levels = list()
 	cost = 2000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 			/datum/design/research/circuit/exosuit/weapons,
 			/datum/design/research/item/exosuit/taser,
 			/datum/design/research/item/exosuit/weapon/ion
-		)
+		) */
 
 /datum/technology/mech_heavy_weaponry_modules
 	name = "Advanced Weaponry"
@@ -300,10 +300,10 @@
 	required_tech_levels = list()
 	cost = 5000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 			/datum/design/research/item/exosuit/weapon/laser,
 			/datum/design/research/item/exosuit/weapon/pk
-		)
+		) */
 
 //AI BRANCH_________________________________________________________________________________________________________________________________________________
 
@@ -320,13 +320,13 @@
 	required_tech_levels = list()
 	cost = 500
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 							/datum/design/research/item/posibrain,
 							/datum/design/research/item/mmi_radio,
 							/datum/design/research/item/intellicard,
 							/datum/design/research/item/paicard,
 							/datum/design/research/circuit/robocontrol
-							)
+							) */
 
 /datum/technology/artificial_intelligence
 	name = "Artificial intelligence"
@@ -341,10 +341,10 @@
 	required_tech_levels = list()
 	cost = 2000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 							/datum/design/research/circuit/aicore,
 							/datum/design/research/circuit/aiupload
-							)
+							) */
 
 /datum/technology/artificial_intelligence_laws
 	name = "Artificial intelligence: LAWS"
@@ -359,7 +359,7 @@
 	required_tech_levels = list()
 	cost = 2000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 							/datum/design/research/circuit/aifixer,
 							/datum/design/research/aimodule/safeguard,
 							/datum/design/research/aimodule/onehuman,
@@ -376,7 +376,7 @@
 							/datum/design/research/circuit/aicore,
 							/datum/design/research/circuit/aiupload,
 							/datum/design/research/circuit/borgupload
-							)
+							) */
 
 /datum/technology/robot_modules
 	name = "Advanced Cyborg Components"
@@ -391,13 +391,13 @@
 	required_tech_levels = list()
 	cost = 2000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 		/datum/design/research/item/mechfab/robot/component/jetpack,
 		/datum/design/research/item/robot_upgrade/vtec,
 		/datum/design/research/item/robot_upgrade/tasercooler,
 		/datum/design/research/item/robot_upgrade/rcd,
 		/datum/design/research/circuit/repair_station,
-	)
+	) */
 
 /*
 /datum/technology/basic_hardsuit_modules

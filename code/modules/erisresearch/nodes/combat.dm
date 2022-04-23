@@ -11,7 +11,7 @@
 	required_tech_levels = list()
 	cost = 0
 
-	unlocks_designs = list(/datum/design/research/item/hud/security)
+/* 	unlocks_designs = list(/datum/design/research/item/hud/security) */
 
 // TO ADD: synth flashes?
 /datum/technology/basic_nonlethal
@@ -27,7 +27,7 @@
 	required_tech_levels = list()
 	cost = 500
 
-	unlocks_designs = list(/datum/design/research/item/flash)
+	/* unlocks_designs = list(/datum/design/research/item/flash) */
 
 /datum/technology/weapon_recharging
 	name = "Weapon Recharging"
@@ -43,9 +43,9 @@
 	required_tech_levels = list()
 	cost = 1000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 							/datum/design/research/circuit/recharger
-							)
+							) */
 
 /datum/technology/advanced_nonlethal
 	name = "Advanced Non-Lethal"
@@ -60,9 +60,9 @@
 	required_tech_levels = list()
 	cost = 2000
 
-	unlocks_designs = list(	/datum/design/research/item/weapon/stunrevolver,
+/* 	unlocks_designs = list(	/datum/design/research/item/weapon/stunrevolver,
 						)
-
+ */
 
 /*/datum/technology/sec_computers
 	name = "Security Computers"
@@ -92,10 +92,10 @@
 	required_tech_levels = list()
 	cost = 1500
 
-	unlocks_designs = list(
+/* 	unlocks_designs = list(
 							/datum/design/research/item/weapon/large_grenade,
 							/datum/design/research/item/weapon/clarissa
-						)
+						) */
 
 /datum/technology/exotic_weaponry
 	name = "Experimental Weaponry"
@@ -110,7 +110,7 @@
 	required_tech_levels = list()
 	cost = 3000
 
-	unlocks_designs = list(/datum/design/research/item/weapon/temp_gun)
+/* 	unlocks_designs = list(/datum/design/research/item/weapon/temp_gun) */
 
 /datum/technology/adv_exotic_weaponry
 	name = "Advanced Experimental Weaponry"
@@ -125,10 +125,10 @@
 	required_tech_levels = list()
 	cost = 5000
 
-	unlocks_designs = list(	/datum/design/research/item/weapon/decloner,
+/* 	unlocks_designs = list(	/datum/design/research/item/weapon/decloner,
 							/datum/design/research/item/weapon/plasmapistol,
 							/datum/design/research/item/weapon/gunmod/penetrator
-						)
+						) */
 
 /datum/technology/exotic_gunmods
 	name = "Experimental Gunmods"
@@ -143,13 +143,13 @@
 	required_tech_levels = list()
 	cost = 4000
 
-	unlocks_designs = list(
+/* 	unlocks_designs = list(
 							/datum/design/research/item/weapon/gunmod/battery_shunt,
 							/datum/design/research/item/weapon/gunmod/overdrive,
 							/datum/design/research/item/weapon/gunmod/toxin_coater,
 							/datum/design/research/item/weapon/gunmod/isotope_diffuser,
 							/datum/design/research/item/weapon/gunmod/psionic_catalyst
-						)
+						) */
 
 /datum/technology/temp
 	name = "Basic Temperature Ammunition"
@@ -164,10 +164,10 @@
 	required_tech_levels = list()
 	cost = 5000
 
-	unlocks_designs = list(
+/* 	unlocks_designs = list(
 							/datum/design/research/item/ammo/shotgun_incendiary,
 							/datum/design/research/item/weapon/gunmod/overheat
-						)
+						) */
 
 
 /datum/technology/adv_lethal
@@ -183,11 +183,11 @@
 	required_tech_levels = list()
 	cost = 2000
 
-	unlocks_designs = list(
+/* 	unlocks_designs = list(
 							/datum/design/research/item/weapon/c20r,
 							/datum/design/research/item/ammo/c20r_ammo,
 							/datum/design/research/item/weapon/katana
-						)
+						) */
 
 /datum/technology/laser_weaponry
 	name = "Laser Weaponry"
@@ -202,7 +202,7 @@
 	required_tech_levels = list()
 	cost = 5000
 
-	unlocks_designs = list(/datum/design/research/item/weapon/mindflayer,  /datum/design/research/item/weapon/nuclear, /datum/design/research/item/weapon/lasercannon)
+/* 	unlocks_designs = list(/datum/design/research/item/weapon/mindflayer,  /datum/design/research/item/weapon/nuclear, /datum/design/research/item/weapon/lasercannon) */
 
 /datum/technology/basic_armor
 	name = "Armor Solutions"
@@ -216,7 +216,7 @@
 	required_technologies = list(/datum/technology/laser_weaponry)
 	required_tech_levels = list()
 	cost = 2500
-	unlocks_designs = list(/datum/design/research/item/paramedic_armor, /datum/design/research/item/paramedic_helmet)
+/* 	unlocks_designs = list(/datum/design/research/item/paramedic_armor, /datum/design/research/item/paramedic_helmet) */
 
 /datum/technology/advanced_armor
 	name = "Advanced Armor Solutions"
@@ -230,5 +230,5 @@
 	required_technologies = list(/datum/technology/basic_armor)
 	required_tech_levels = list()
 	cost = 2500
-	unlocks_designs = list(/datum/design/research/item/science_voidsuit)
+/* 	unlocks_designs = list(/datum/design/research/item/science_voidsuit) */
 

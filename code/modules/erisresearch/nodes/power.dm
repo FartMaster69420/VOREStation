@@ -11,7 +11,7 @@
 	required_tech_levels = list()
 	cost = 0
 
-	unlocks_designs = list(	/datum/design/research/circuit/powermonitor,
+/* 	unlocks_designs = list(	/datum/design/research/circuit/powermonitor,
 							/datum/design/research/item/part/basic_capacitor,
 							/datum/design/research/item/powercell/large/basic,
 							/datum/design/research/item/powercell/large/high,
@@ -19,7 +19,7 @@
 							/datum/design/research/item/powercell/medium/high,
 							/datum/design/research/item/powercell/small/basic,
 							/datum/design/research/item/powercell/small/high,
-							/datum/design/research/circuit/batteryrack)
+							/datum/design/research/circuit/batteryrack) */
 
 /datum/technology/advanced_power
 	name = "Advanced Power Storing"
@@ -34,11 +34,11 @@
 	required_tech_levels = list()
 	cost = 200
 
-	unlocks_designs = list(	/datum/design/research/item/part/adv_capacitor,
+/* 	unlocks_designs = list(	/datum/design/research/item/part/adv_capacitor,
 							/datum/design/research/item/powercell/large/super,
 							/datum/design/research/item/powercell/medium/super,
 							/datum/design/research/item/powercell/small/super
-							)
+							) */
 
 /datum/technology/advanced_power_storage
 	name = "Advanced Power Storage (SMES)"
@@ -53,7 +53,7 @@
 	required_tech_levels = list()
 	cost = 1000
 
-	unlocks_designs = list(/datum/design/research/circuit/smes_cell, /datum/design/research/item/part/smes_coil/weak)
+/* 	unlocks_designs = list(/datum/design/research/circuit/smes_cell, /datum/design/research/item/part/smes_coil/weak) */
 
 /datum/technology/energy_distribution
 	name = "Energy Distribution"
@@ -68,7 +68,7 @@
 	required_tech_levels = list()
 	cost = 1000
 
-	unlocks_designs = list(/datum/design/research/circuit/breakerbox)
+/* 	unlocks_designs = list(/datum/design/research/circuit/breakerbox) */
 
 /datum/technology/super_power
 	name = "Super Power Storing"
@@ -85,12 +85,12 @@
 	required_tech_levels = list()
 	cost = 1200
 
-	unlocks_designs = list(	/datum/design/research/item/part/super_capacitor,
+/* 	unlocks_designs = list(	/datum/design/research/item/part/super_capacitor,
 							/datum/design/research/item/powercell/large/hyper,
 							/datum/design/research/item/powercell/medium/hyper,
 							/datum/design/research/item/powercell/small/hyper,
 							/datum/design/research/item/part/smes_coil/super_io,
-							/datum/design/research/item/part/smes_coil/super_capacity)
+							/datum/design/research/item/part/smes_coil/super_capacity) */
 
 /datum/technology/solar_power
 	name = "Basic Power Generation"
@@ -105,9 +105,9 @@
 	required_tech_levels = list()
 	cost = 400
 
-	unlocks_designs = list(	/datum/design/research/circuit/solarcontrol,
+/* 	unlocks_designs = list(	/datum/design/research/circuit/solarcontrol,
 							/datum/design/research/circuit/pacman
-						)
+						) */
 
 /datum/technology/improved_power_generation
 	name = "Improved Power Generation"
@@ -122,7 +122,7 @@
 	required_tech_levels = list()
 	cost = 600
 
-	unlocks_designs = list(/datum/design/research/circuit/superpacman)
+/* 	unlocks_designs = list(/datum/design/research/circuit/superpacman) */
 
 /datum/technology/advanced_power_generation
 	name = "Basic Fusion Power"
@@ -137,7 +137,7 @@
 	required_tech_levels = list()
 	cost = 1000
 
-	unlocks_designs = list(/datum/design/research/circuit/mrspacman)
+/* 	unlocks_designs = list(/datum/design/research/circuit/mrspacman) */
 
 /datum/technology/fusion_power_generation
 	name = "Fusion Power Generation"//"R-UST Mk. 8"
@@ -172,8 +172,8 @@
 	required_tech_levels = list()
 	cost = 3000
 
-	unlocks_designs = list(
+	/* unlocks_designs = list(
 							/datum/design/research/item/powercell/large/nuclear,
 							/datum/design/research/item/powercell/medium/nuclear,
 							/datum/design/research/item/powercell/small/nuclear
-						)
+						) */

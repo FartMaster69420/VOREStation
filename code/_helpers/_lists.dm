@@ -15,6 +15,18 @@
  * Misc
  */
 
+//Sets the value of a key in an assoc list
+#define LAZYSET(L,K,V) if(!L) { L = list(); } L[K] = V;
+
+//Adds value to the existing value of a key
+#define LAZYAPLUS(L,K,V) if(!L) { L = list(); } if (!L[K]) { L[K] = 0; } L[K] += V;
+
+//Subtracts value from the existing value of a key
+#define LAZYAMINUS(L,K,V) if(L && L[K]) { L[K] -= V; if(!LAZYLEN(L[K])) { L -= K } }
+
+// Insert an object A into a sorted list using cmp_proc (/code/_helpers/cmp.dm) for comparison.
+#define ADD_SORTED(list, A, cmp_proc) if(!list.len) {list.Add(A)} else {list.Insert(FindElementIndex(A, list, cmp_proc), A)}
+
 //Returns a list in plain english as a string
 /proc/english_list(var/list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = ",")
 	// this proc cannot be merged with counting_english_list to maintain compatibility
@@ -870,4 +882,3 @@ var/global/list/json_cache = list()
 	else
 		used_key_list[input_key] = 1
 	return input_key
-	

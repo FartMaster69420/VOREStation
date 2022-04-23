@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(explosion_watcher_list)
 	var/static/list/core_points = list(
 		/obj/item/slime_extract/grey = 100,
 		/obj/item/slime_extract/gold = 2000,
-		/obj/item/slime_extract/adamantine = 3000,
+		///obj/item/slime_extract/adamantine = 3000,
 		/obj/item/slime_extract/bluespace = 5000,
 		/obj/item/slime_extract/rainbow = 10000
 	)
@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(explosion_watcher_list)
 	var/list/temp_tech = I.origin_tech
 	var/item_tech_points = 0
 	var/has_new_tech = FALSE
-	var/is_board = istype(I, /obj/item/electronics/circuitboard)
+	var/is_board = istype(I, /obj/item/weapon/circuitboard)
 
 	for(var/T in temp_tech)
 		if(tech_points[T])
@@ -223,17 +223,17 @@ GLOBAL_LIST_EMPTY(explosion_watcher_list)
 	icon_state = "science"
 	item_state = "sciencetool"
 	desc = "A hand-held device capable of extracting usefull data from various sources, such as paper reports and slime cores."
-	flags = CONDUCT
+	//flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = ITEM_SIZE_SMALL
+	w_class = ITEMSIZE_SMALL
 	throw_speed = 5
 	throw_range = 10
 	matter = list(MATERIAL_STEEL = 5)
 	origin_tech = list(TECH_ENGINEERING = 1, TECH_BIO = 1)
-	spawn_tags = SPAWN_TAG_DIVICE_SCIENCE
-	spawn_frequency = 5
-	rarity_value = 8
+	//spawn_tags = SPAWN_TAG_DIVICE_SCIENCE
+	//spawn_frequency = 5
+	//rarity_value = 8
 
 	var/datum/experiment_data/experiments
 	var/list/scanned_autopsy_weapons = list()
@@ -251,14 +251,14 @@ GLOBAL_LIST_EMPTY(explosion_watcher_list)
 
 /obj/item/device/science_tool/afterattack(obj/O, mob/living/user)
 	var/scanneddata = 0
-
+	/*
 	if(istype(O,/obj/item/paper/autopsy_report))
 		var/obj/item/paper/autopsy_report/report = O
 		for(var/datum/autopsy_data/W in report.autopsy_data)
 			if(!(W.weapon in scanned_autopsy_weapons))
 				scanneddata += 1
 				scanned_autopsy_weapons += W.weapon
-
+	*/
 	if(istype(O, /obj/item/paper/artifact_info))
 		var/obj/item/paper/artifact_info/report = O
 		if(report.artifact_type)

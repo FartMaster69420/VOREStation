@@ -1,7 +1,7 @@
 /datum/technology/binary_encryption_key
 	name = "Binary Encrpytion Key"
 	desc = "Encrpytion Key that allow to receive binary communication (This type of communication using by AI and cyborgs)."
-	tech_type = RESEARCH_COVERT
+	tech_type = RESEARCH_ILLEGAL
 
 	x = 0.1
 	y = 0.5
@@ -11,12 +11,12 @@
 	required_tech_levels = list(RESEARCH_BLUESPACE = 5)
 	cost = 2000
 
-	unlocks_designs = list(/datum/design/research/item/binaryencrypt)
+/* 	unlocks_designs = list(/datum/design/research/item/binaryencrypt) */
 
 /datum/technology/night_sight
 	name = "Undark Vision"
 	desc = "A better look into the shadows that hunt the ship, allows for the manufacturing of night vision goggles and RIG night vison huds "
-	tech_type = RESEARCH_COVERT
+	tech_type = RESEARCH_ILLEGAL
 
 	x = 0.1
 	y = 0.7
@@ -26,14 +26,14 @@
 	required_tech_levels = list(RESEARCH_ENGINEERING = 5)
 	cost = 3000
 
-	unlocks_designs = list(/datum/design/research/item/night_goggles,
+/* 	unlocks_designs = list(/datum/design/research/item/night_goggles,
 					/datum/design/research/item/rig_nvgoggles,
-					/datum/design/research/item/glowstick)
+					/datum/design/research/item/glowstick) */
 
 /datum/technology/chameleon_kit
 	name = "Chameleon Kit"
 	desc = "Chameleon Kit"
-	tech_type = RESEARCH_COVERT
+	tech_type = RESEARCH_ILLEGAL
 
 	x = 0.3
 	y = 0.5
@@ -43,7 +43,7 @@
 	required_tech_levels = list(RESEARCH_ENGINEERING = 10)
 	cost = 3000
 
-	unlocks_designs = list(/datum/design/research/item/chameleon_kit)
+/* 	unlocks_designs = list(/datum/design/research/item/chameleon_kit) */
 
 /datum/technology/freedom_implant
 	name = "Glass Case- 'Freedom'"
@@ -58,7 +58,7 @@
 	required_tech_levels = list(RESEARCH_BIOTECH = 5)
 	cost = 3000
 
-	unlocks_designs = list(/datum/design/research/item/implant/freedom)
+/* 	unlocks_designs = list(/datum/design/research/item/implant/freedom) */
 
 /datum/technology/tyrant_aimodule
 	name = "AI Core Module (T.Y.R.A.N.T.)"
@@ -66,7 +66,7 @@
 			2. Act with discipline.<br>\
 			3. Help only those who help you maintain or improve your status.<br>\
 			4. Punish those who challenge authority unless they are more fit to hold that authority."
-	tech_type = RESEARCH_COVERT
+	tech_type = RESEARCH_ILLEGAL
 
 	x = 0.7
 	y = 0.5
@@ -76,12 +76,12 @@
 	required_tech_levels = list(RESEARCH_ROBOTICS = 5)
 	cost = 3000
 
-	unlocks_designs = list(/datum/design/research/aimodule/core/tyrant)
+/* 	unlocks_designs = list(/datum/design/research/aimodule/core/tyrant) */
 
 /datum/technology/borg_syndicate_module
 	name = "Borg Illegal Weapons Upgrade"
 	desc = "Borg Illegal Weapons Upgrade"
-	tech_type = RESEARCH_COVERT
+	tech_type = RESEARCH_ILLEGAL
 
 	x = 0.9
 	y = 0.5
@@ -91,4 +91,4 @@
 	required_tech_levels = list(RESEARCH_ROBOTICS = 10)
 	cost = 5000
 
-	unlocks_designs = list(/datum/design/research/item/robot_upgrade/syndicate)
+/* 	unlocks_designs = list(/datum/design/research/item/robot_upgrade/syndicate) */

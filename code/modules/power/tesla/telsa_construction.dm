@@ -15,7 +15,7 @@
 	desc = "The circuit board for a tesla coil."
 	id = "tesla_coil"
 	build_path = /obj/item/weapon/circuitboard/tesla_coil
-	req_tech = list(TECH_MAGNET = 2, TECH_POWER = 4)
+	//req_tech = list(TECH_MAGNET = 2, TECH_POWER = 4)
 	sort_string = "MAAAC"
 
 // Grounding rods can be built as machines using a circuit made in an autolathe.

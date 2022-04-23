@@ -11,7 +11,7 @@
 	required_tech_levels = list()
 	cost = 0
 
-	unlocks_designs = list(/datum/design/research/item/beacon)
+	/* unlocks_designs = list(/datum/design/research/item/beacon) */
 
 /datum/technology/radio_transmission
 	name = "Blue-space Transmission"
@@ -41,7 +41,7 @@
 	required_tech_levels = list()
 	cost = 1000
 
-	unlocks_designs = list(	/datum/design/research/circuit/comconsole,
+	/* unlocks_designs = list(	/datum/design/research/circuit/comconsole,
 							/datum/design/research/circuit/message_monitor,
 							/datum/design/research/circuit/comm_monitor,
 							/datum/design/research/circuit/comm_server,
@@ -54,7 +54,7 @@
 							/datum/design/research/item/part/subspace_treatment,
 							/datum/design/research/item/part/subspace_analyzer,
 							/datum/design/research/item/part/subspace_crystal,
-							/datum/design/research/item/part/subspace_transmitter)
+							/datum/design/research/item/part/subspace_transmitter) */
 
 /datum/technology/bluespace_telecommunications
 	name = "Advanced Telecommunications"
@@ -69,14 +69,14 @@
 	required_tech_levels = list()
 	cost = 800
 
-	unlocks_designs = list(
+/* 	unlocks_designs = list(
 							/datum/design/research/circuit/tcom/bus,
 							/datum/design/research/circuit/tcom/hub,
 							/datum/design/research/circuit/tcom/processor,
 							/datum/design/research/circuit/tcom/server,
 							/datum/design/research/circuit/tcom/relay,
 							/datum/design/research/circuit/ntnet_relay
-						)
+						) */
 /*
 /datum/technology/transmission_encryption
 	name = "Transmission Encryption"
@@ -105,10 +105,10 @@
 	required_technologies = list(/datum/technology/basic_bluespace)
 	cost = 800
 
-	unlocks_designs = list(	/datum/design/research/item/ano_scanner,
+/* 	unlocks_designs = list(	/datum/design/research/item/ano_scanner,
 							/datum/design/research/item/beacon_locator,
 							/datum/design/research/item/gps
-							)
+							) */
 
 /datum/technology/bluespace_shield
 	name = "Bluespace Shields"
@@ -123,7 +123,7 @@
 	required_tech_levels = list()
 	cost = 1500
 
-	unlocks_designs = list(/datum/design/research/circuit/shield/hull)
+	//unlocks_designs = list(/datum/design/research/circuit/shield/hull)
 
 /datum/technology/teleportation
 	name = "Teleportation"
@@ -138,8 +138,8 @@
 	required_tech_levels = list()
 	cost = 1500
 
-	unlocks_designs = list(/datum/design/research/circuit/teleconsole,
-	                       /datum/design/research/circuit/lrange_scanner/hull)
+/* 	unlocks_designs = list(/datum/design/research/circuit/teleconsole,
+	                       /datum/design/research/circuit/lrange_scanner/hull) */
 
 /datum/technology/adv_spatial_scan
 	name = "Advanced Spatial Analyzing"
@@ -153,7 +153,7 @@
 	required_technologies = list(/datum/technology/teleportation)
 	cost = 800
 
-	unlocks_designs = list(	/datum/design/research/circuit/telesci/console,
+/* 	unlocks_designs = list(	/datum/design/research/circuit/telesci/console,
 							/datum/design/research/circuit/telesci/hub,
 							/datum/design/research/item/part/artificialbscrystal,
 							/datum/design/research/circuit/bssilk/hub,
@@ -161,7 +161,7 @@
 							/datum/design/research/item/bs_snare,
 							/datum/design/research/circuit/teleporter/station,
 							/datum/design/research/circuit/teleporter/hub
-							)
+							) */
 
 /datum/technology/bluespace_tools
 	name = "Advanced Bluespace Tech"
@@ -175,13 +175,13 @@
 	required_technologies = list(/datum/technology/teleportation)
 	required_tech_levels = list()
 	cost = 3000
-
+/*
 	unlocks_designs = list(	/datum/design/research/item/beaker/bluespace,
 							/datum/design/research/item/beaker/noreact,
 							/datum/design/research/item/bag_holding,
 							/datum/design/research/item/weapon/bluespace_harpoon,
 							/datum/design/research/item/weapon/bluespace_dagger
-							)
+							) */
 
 /datum/technology/bluespace_extended
 	name = "Extended Bluespace Tech"
@@ -196,12 +196,12 @@
 	required_tech_levels = list()
 	cost = 1500
 
-	unlocks_designs = list(	/datum/design/research/item/belt_holding,
+/* 	unlocks_designs = list(	/datum/design/research/item/belt_holding,
 							/datum/design/research/item/pouch_holding,
 							/datum/design/research/item/trashbag_holding,
 							/datum/design/research/item/oresatchel_holding
-						    )
-	
+						    ) */
+
 /*
 /datum/technology/bluespace_rped
 	name = "Bluespace RPED"

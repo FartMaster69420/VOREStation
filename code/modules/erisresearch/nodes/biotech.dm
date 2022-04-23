@@ -10,10 +10,10 @@
 	required_technologies = list()
 	required_tech_levels = list()
 	cost = 0
-
+	/*
 	unlocks_designs = list(	/datum/design/research/item/part/micro_mani,
 							/datum/design/research/item/part/basic_sensor
-						)
+						)*/
 
 /datum/technology/basic_med_machines
 	name = "Basic Medical Machines"
@@ -27,10 +27,10 @@
 	required_technologies = list(/datum/technology/basic_biotech)
 	required_tech_levels = list()
 	cost = 200
-
+	/*
 	unlocks_designs = list(	/datum/design/research/circuit/med_data,
 							/datum/design/research/circuit/operating
-						)
+						)*/
 /*
 /datum/technology/virology
 	name = "Virology"
@@ -60,7 +60,7 @@
 	required_tech_levels = list()
 	cost = 500
 
-	unlocks_designs = list(/datum/design/research/circuit/sleeper)
+	//unlocks_designs = list(/datum/design/research/circuit/sleeper)
 
 /datum/technology/hydroponics
 	name = "Hydroponics"
@@ -74,10 +74,10 @@
 	required_technologies = list(/datum/technology/basic_biotech)
 	required_tech_levels = list()
 	cost = 400
-
+	/*
 	unlocks_designs = list(	/datum/design/research/circuit/biogenerator,
 							/datum/design/research/item/weapon/flora_gun)
-
+	*/
 /datum/technology/portable_chemistry
 	name = "Portable Chemistry"
 	desc = "Portable bottle generating and reagent separation. Portable heating system, space for system required: 30 cubic millimeters."
@@ -93,7 +93,7 @@
 	required_tech_levels = list()
 	cost = 700
 
-	unlocks_designs = list(	/datum/design/research/circuit/chemmaster,
+/*	unlocks_designs = list(	/datum/design/research/circuit/chemmaster,
 							/datum/design/research/circuit/chemical_dispenser,
 							/datum/design/research/circuit/chemical_dispenser_beer,
 							/datum/design/research/circuit/chemical_dispenser_soda,
@@ -101,7 +101,7 @@
 							/datum/design/research/item/makeshift_centrifuge,
 							/datum/design/research/structure/bidon,
 							/datum/design/research/structure/bidonadv
-							)
+							)*/
 /*
 /datum/technology/basic_food_processing
 	name = "Basic Food Processing"
@@ -145,13 +145,13 @@
 	required_technologies = list(/datum/technology/adv_med_machines)
 	required_tech_levels = list()
 	cost = 500
-
+	/*
 	unlocks_designs = list(	/datum/design/research/item/medical/mass_spectrometer,
 							/datum/design/research/item/medical/reagent_scanner,
 							/datum/design/research/item/scalpel_laser,
 							/datum/design/research/item/hud/health,
 							)
-
+	*/
 /datum/technology/improved_biotech
 	name = "Improved Biotech"
 	desc = "Improved micro manipulations, advaced scanning method. Chemical implant, be careful."
@@ -164,12 +164,12 @@
 	required_technologies = list(/datum/technology/basic_medical_tools)
 	required_tech_levels = list()
 	cost = 1000
-
+	/*
 	unlocks_designs = list(	/datum/design/research/item/implant/chemical,
 							/datum/design/research/item/part/adv_sensor,
 							/datum/design/research/item/part/nano_mani
 							)
-
+	*/
 /datum/technology/portable_biotech
 	name = "Portable Biotech"
 	desc = "Portable injection and scan method, capitalists' and not capitalists portable sleeper. Integrated medical sensors hud with hardsuits' systems."
@@ -184,14 +184,14 @@
 								)
 	required_tech_levels = list()
 	cost = 1000
-
+	/*
 	unlocks_designs = list(	/datum/design/research/item/autodoc,
 							/datum/design/research/item/autodoc_commercial,
 							/datum/design/research/item/chem_dispenser,
 							/datum/design/research/item/medhud,
 							/datum/design/research/structure/bidonadv
 							)
-
+	*/
 /datum/technology/tracker_tablet
 	name = "Tracker tablet"
 	desc = "Modified tablet frame with extra screens for use with sensor monitoring software."
@@ -205,7 +205,7 @@
 	required_tech_levels = list()
 	cost = 1000
 
-	unlocks_designs = list(/datum/design/research/item/tracker_tablet)
+	//unlocks_designs = list(/datum/design/research/item/tracker_tablet)
 
 /*
 /datum/technology/med_teleportation
@@ -235,7 +235,7 @@
 	required_technologies = list(/datum/technology/improved_biotech)
 	required_tech_levels = list()
 	cost = 1000
-
+	/*
 	unlocks_designs = list(	/datum/design/research/item/part/phasic_sensor,
 							/datum/design/research/item/part/pico_mani,
 							/datum/design/research/item/medical/adv_mass_spectrometer,
@@ -244,7 +244,7 @@
 							/datum/design/research/item/weapon/rapidsyringe,
 							/datum/design/research/circuit/chemical_dispenser_industrial
 							)
-
+	*/
 /datum/technology/top_biotech
 	name = "Augmentations' Biotech"
 	desc = "Augmentations for body, this tech using almost all previous technologies."
@@ -259,7 +259,7 @@
 								)
 	required_tech_levels = list()
 	cost = 2000
-
+	/*
 	unlocks_designs = list(	/datum/design/research/item/mechfab/modules/armor,
 							/datum/design/research/item/mechfab/modules/armblade,
 							/datum/design/research/item/mechfab/modules/runner,
@@ -272,7 +272,7 @@
 							/datum/design/research/item/mechfab/prosthesis_moebius/l_leg,
 							/datum/design/research/item/mechfab/prosthesis_moebius/groin
 							)
-
+	*/
 /datum/technology/mind_biotech
 	name = "Mind Biotech"
 	desc = "Experimental biotechnology that explores the inner workings of sentient minds"
@@ -287,4 +287,4 @@
 	required_tech_levels = list()
 	cost = 3000
 
-	unlocks_designs = list(	/datum/design/research/circuit/mindswapper)
+	//unlocks_designs = list(	/datum/design/research/circuit/mindswapper)
