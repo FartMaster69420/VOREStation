@@ -527,7 +527,7 @@
 	icon_state = "capacitor_super"
 	origin_tech = list(TECH_POWER = 5, TECH_MATERIAL = 4)
 	rating = 3
-	matter = list(MAT_STEEL = 50,MAT_GLASS = 50)
+	matter = list(MAT_STEEL = 50, MAT_GLASS = 50, MAT_GOLD = 20)
 
 /obj/item/weapon/stock_parts/scanning_module/phasic
 	name = "phasic scanning module"
@@ -535,7 +535,7 @@
 	icon_state = "scan_module_phasic"
 	origin_tech = list(TECH_MAGNET = 5)
 	rating = 3
-	matter = list(MAT_STEEL = 50,MAT_GLASS = 20)
+	matter = list(MAT_STEEL = 50, MAT_GLASS = 20, MAT_SILVER = 10)
 
 /obj/item/weapon/stock_parts/manipulator/pico
 	name = "pico-manipulator"
@@ -551,7 +551,7 @@
 	desc = "A tiny laser used in certain devices."
 	origin_tech = list(TECH_MAGNET = 5)
 	rating = 3
-	matter = list(MAT_STEEL = 10,MAT_GLASS = 20)
+	matter = list(MAT_STEEL = 10, MAT_GLASS = 20, MAT_URANIUM = 10)
 
 /obj/item/weapon/stock_parts/matter_bin/super
 	name = "super matter bin"
@@ -569,7 +569,7 @@
 	icon_state = "capacitor_hyper"
 	origin_tech = list(TECH_POWER = 6, TECH_MATERIAL = 5, TECH_BLUESPACE = 1, TECH_ARCANE = 1)
 	rating = 4
-	matter = list(MAT_STEEL = 80, MAT_GLASS = 40)
+	matter = list(MAT_STEEL = 200, MAT_GLASS = 100, MAT_VERDANTIUM = 30, MAT_DURASTEEL = 25)
 
 /obj/item/weapon/stock_parts/scanning_module/hyper
 	name = "quantum scanning module"
@@ -577,7 +577,7 @@
 	icon_state = "scan_module_hyper"
 	origin_tech = list(TECH_MAGNET = 6, TECH_BLUESPACE = 1, TECH_ARCANE = 1)
 	rating = 4
-	matter = list(MAT_STEEL = 100,MAT_GLASS = 40)
+	matter = list(MAT_STEEL = 50, MAT_GLASS = 20, MAT_SILVER = 50, MAT_VERDANTIUM = 40, MAT_DURASTEEL = 50)
 
 /obj/item/weapon/stock_parts/manipulator/hyper
 	name = "planck-manipulator"
@@ -585,7 +585,7 @@
 	icon_state = "hyper_mani"
 	origin_tech = list(TECH_MATERIAL = 6, TECH_DATA = 3, TECH_ARCANE = 1)
 	rating = 4
-	matter = list(MAT_STEEL = 30)
+	matter = list(MAT_STEEL = 200, MAT_VERDANTIUM = 50, MAT_DURASTEEL = 50)
 
 /obj/item/weapon/stock_parts/micro_laser/hyper
 	name = "hyper-power micro-laser"
@@ -593,7 +593,7 @@
 	desc = "A tiny laser used in certain devices."
 	origin_tech = list(TECH_MAGNET = 6, TECH_ARCANE = 1)
 	rating = 4
-	matter = list(MAT_STEEL = 30, MAT_GLASS = 40)
+	matter = list(MAT_STEEL = 200, MAT_GLASS = 20, MAT_URANIUM = 30, MAT_VERDANTIUM = 50, MAT_DURASTEEL = 100)
 
 /obj/item/weapon/stock_parts/matter_bin/hyper
 	name = "hyper matter bin"
@@ -601,7 +601,7 @@
 	icon_state = "hyper_matter_bin"
 	origin_tech = list(TECH_MATERIAL = 6, TECH_ARCANE = 1)
 	rating = 4
-	matter = list(MAT_STEEL = 100)
+	matter = list(MAT_STEEL = 200, MAT_VERDANTIUM = 60, MAT_DURASTEEL = 75)
 
 // Rating 5 - Precursor
 
@@ -611,7 +611,7 @@
 	icon_state = "capacitor_omni"
 	origin_tech = list(TECH_POWER = 7, TECH_MATERIAL = 6, TECH_BLUESPACE = 3, TECH_PRECURSOR  = 1)
 	rating = 5
-	matter = list(MAT_STEEL = 80, MAT_GLASS = 40)
+	matter = list(MAT_STEEL = 2000, MAT_DIAMOND = 1000, MAT_GLASS = 1000, MAT_MORPHIUM = 100, MAT_DURASTEEL = 100)
 
 /obj/item/weapon/stock_parts/scanning_module/omni
 	name = "omni-scanning module"
@@ -619,7 +619,7 @@
 	icon_state = "scan_module_omni"
 	origin_tech = list(TECH_MAGNET = 7, TECH_BLUESPACE = 3, TECH_PRECURSOR = 1)
 	rating = 5
-	matter = list(MAT_STEEL = 100,MAT_GLASS = 40)
+	matter = list(MAT_STEEL = 1000, MAT_PLASTEEL = 500, MAT_GLASS = 750, MAT_SILVER = 500, MAT_MORPHIUM = 60, MAT_DURASTEEL = 100)
 
 /obj/item/weapon/stock_parts/manipulator/omni
 	name = "omni-manipulator"
@@ -627,7 +627,7 @@
 	icon_state = "omni_mani"
 	origin_tech = list(TECH_MATERIAL = 7, TECH_DATA = 4, TECH_PRECURSOR  = 1)
 	rating = 5
-	matter = list(MAT_STEEL = 30)
+	matter = list(MAT_STEEL = 2000, MAT_PLASTEEL = 500, MAT_MORPHIUM = 100, MAT_DURASTEEL = 100)
 
 /obj/item/weapon/stock_parts/micro_laser/omni
 	name = "omni-power micro-laser"
@@ -635,7 +635,7 @@
 	desc = "A strange laser used in certain devices."
 	origin_tech = list(TECH_MAGNET = 7, TECH_PRECURSOR  = 1)
 	rating = 5
-	matter = list(MAT_STEEL = 30, MAT_GLASS = 40)
+	matter = list(MAT_STEEL = 2000, MAT_GLASS = 500, MAT_URANIUM = 2000, MAT_MORPHIUM = 50, MAT_DURASTEEL = 100)
 
 /obj/item/weapon/stock_parts/matter_bin/omni
 	name = "omni-matter bin"
@@ -643,7 +643,7 @@
 	icon_state = "omni_matter_bin"
 	origin_tech = list(TECH_MATERIAL = 7, TECH_PRECURSOR  = 1)
 	rating = 5
-	matter = list(MAT_STEEL = 100)
+	matter = list(MAT_STEEL = 2000, MAT_PLASTEEL = 100, MAT_MORPHIUM = 100, MAT_DURASTEEL = 100)
 
 
 // Subspace stock parts

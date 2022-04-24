@@ -19,7 +19,7 @@ export const PartsLathe = (props, context) => {
     recipies,
   } = data;
   return (
-    <Window width={500} height={500} resizable>
+    <Window width={900} height={500} resizable>
       <Window.Content scrollable>
         {error && <NoticeBox danger>Missing Materials: {error}</NoticeBox> || null}
         <Section title="Materials">

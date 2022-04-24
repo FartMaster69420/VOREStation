@@ -28,17 +28,36 @@
 	active_power_usage = 5000
 
 	// Amount of materials we can store total
-	var/list/materials = list(MAT_STEEL = 0, MAT_GLASS = 0)
-	var/list/storage_capacity = list(MAT_STEEL = 0, MAT_GLASS = 0)
+	var/list/materials = list(
+							MAT_STEEL = 0,
+							MAT_GLASS = 0,
+							MAT_GOLD = 0,
+							MAT_SILVER = 0,
+							MAT_PLASTEEL = 0,
+							MAT_DURASTEEL = 0,
+							MAT_VERDANTIUM = 0,
+							MAT_MORPHIUM = 0
+							)
+	var/list/storage_capacity = list(
+							MAT_STEEL = 0,
+							MAT_GLASS = 0,
+							MAT_GOLD = 0,
+							MAT_SILVER = 0,
+							MAT_PLASTEEL = 0,
+							MAT_DURASTEEL = 0,
+							MAT_VERDANTIUM = 0,
+							MAT_MORPHIUM = 0
+							)
 
 	var/obj/item/weapon/circuitboard/copy_board // Inserted board
+	var/obj/item/weapon/storage/part_replacer/loaded_replacer
 
 	var/list/datum/category_item/partslathe/queue = list() // Queue of things to build
 	var/busy = 0			// Currently building stuff y/n
 	var/progress = 0		// How many machine ticks have we spent building current thing?
 	var/mat_efficiency = 3	// Material usage efficiency (less efficient than protolathe)
 	var/speed = 1			// Ticks per tick build speed multiplier
-
+	var/tier = 1
 	// Static list of recipies we will lazily generate
 	// type -> /datum/category_item/partslathe/
 	var/static/list/partslathe_recipies
@@ -61,8 +80,22 @@
 	var/mb_rating = 0
 	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
 		mb_rating += M.rating
-	storage_capacity[MAT_STEEL] = mb_rating  * 16000
-	storage_capacity["glass"] = mb_rating  * 8000
+	for(var/mat in materials)
+		switch(mat)
+			if(MAT_STEEL)
+				storage_capacity[mat] = mb_rating  * 16000
+			if(MAT_GLASS)
+				storage_capacity[mat] = mb_rating  * 10000
+			if(MAT_GOLD || MAT_SILVER)
+				if(tier > 1)
+					storage_capacity[mat] = mb_rating * 9000
+			if(MAT_PLASTEEL || MAT_DURASTEEL || MAT_VERDANTIUM)
+				if(tier > 3)
+					storage_capacity[mat] = mb_rating * 9000
+			if(MAT_MORPHIUM)
+				if(tier > 4)
+					storage_capacity[mat] = mb_rating * 6000
+
 	var/T = 0
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		T += M.rating
@@ -86,9 +119,13 @@
 			flick("partslathe-lidopen", src)
 		icon_state = "partslathe-idle"
 
+/obj/machinery/partslathe/MouseDrop_T(atom/dropping, mob/living/user)
+	if(istype(dropping, /obj/item/weapon/storage/part_replacer) && !loaded_replacer)
+		loaded_replacer = dropping
+
 /obj/machinery/partslathe/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(busy)
-		to_chat(user, "<span class='notice'>\The [src] is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_notice("\The [src] is busy. Please wait for completion of previous operation."))
 		return 1
 	if(default_deconstruction_screwdriver(user, O))
 		return
@@ -99,23 +136,23 @@
 	if(inoperable())
 		return
 	if(panel_open)
-		to_chat(user, "<span class='notice'>You can't load \the [src] while it's opened.</span>")
+		to_chat(user, span_notice("You can't load \the [src] while it's opened."))
 		return
 	if(istype(O, /obj/item/weapon/circuitboard))
 		if(copy_board)
-			to_chat(user, "<span class='warning'>There is already a board inserted in \the [src].</span>")
+			to_chat(user, span_warning("There is already a board inserted in \the [src]."))
 			return
 		if(!user.unEquip(O))
 			return
 		copy_board = O
 		O.forceMove(src)
-		user.visible_message("[user] inserts [O] into \the [src]'s circuit reader.", "<span class='notice'>You insert [O] into \the [src]'s circuit reader.</span>")
+		user.visible_message("[user] inserts [O] into \the [src]'s circuit reader.", span_notice("You insert [O] into \the [src]'s circuit reader."))
 		updateUsrDialog()
 		return
 	if(try_load_materials(user, O))
 		return
 	else
-		to_chat(user, "<span class='notice'>You cannot insert this item into \the [src]!</span>")
+		to_chat(user, span_notice("You cannot insert this item into \the [src]!"))
 		return
 
 // Attept to load materials.  Returns 0 if item wasn't a stack of materials, otherwise 1 (even if failed to load)
@@ -123,7 +160,7 @@
 	if(!istype(S))
 		return 0
 	if(!(S.material.name in materials))
-		to_chat(user, "<span class='warning'>The [src] doesn't accept [S.material]!</span>")
+		to_chat(user, span_warning("The [src] doesn't accept [S.material]!"))
 		return 1
 	if(S.get_amount() < 1)
 		return 1 // Does this even happen? Sanity check I guess.
@@ -134,11 +171,11 @@
 			materials[S.material.name] += S.perunit
 			S.use(1)
 			count++
-		user.visible_message("[user] inserts [S.name] into \the [src].", "<span class='notice'>You insert [count] [S.name] into \the [src].</span>")
+		user.visible_message("[user] inserts [S.name] into \the [src].", span_notice("You insert [count] [S.name] into \the [src]."))
 		flick("partslathe-load-[S.material.name]", src)
 		updateUsrDialog()
 	else
-		to_chat(user, "<span class='warning'>\The [src] cannot hold more [S.name].</span>")
+		to_chat(user, span_warning("\The [src] cannot hold more [S.name]."))
 	return 1
 
 /obj/machinery/partslathe/process()
@@ -163,7 +200,7 @@
 			removeFromQueue(1)
 		update_icon()
 	else if(busy)
-		visible_message("<span class='notice'>\icon [src] flashes: insufficient materials: [getLackingMaterials(D)].</span>")
+		visible_message(span_notice("\icon [src] flashes: insufficient materials: [getLackingMaterials(D)]."))
 		busy = 0
 		update_use_power(USE_POWER_IDLE)
 		update_icon()
@@ -197,7 +234,10 @@
 		materials[M] = max(0, materials[M] - CEILING((D.resources[M] * mat_efficiency), 1))
 	var/obj/new_item = D.build(loc);
 	if(new_item)
-		new_item.loc = loc
+		if(loaded_replacer) // Load part replacers.
+			new_item.loc = loaded_replacer
+		else
+			new_item.loc = loc
 		if(mat_efficiency < 1) // No matter out of nowhere
 			if(new_item.matter && new_item.matter.len > 0)
 				for(var/i in new_item.matter)
@@ -279,7 +319,7 @@
 		var/datum/category_item/partslathe/current = queue[1]
 		data["building"] = current.name
 		data["buildPercent"] = (progress / current.time * 100)
-	
+
 	data["error"] = null
 	if(queue.len > 0 && !canBuild(queue[1]))
 		data["error"] = getLackingMaterials(queue[1])
@@ -330,13 +370,13 @@
 			return TRUE
 
 	if(busy)
-		to_chat(usr, "<span class='notice'>[src] is busy. Please wait for completion of previous operation.</span>")
+		to_chat(usr, span_notice("[src] is busy. Please wait for completion of previous operation."))
 		return
 
 	switch(action)
 		if("ejectBoard")
 			if(copy_board)
-				visible_message("<span class='notice'>[copy_board] is ejected from [src]'s circuit reader</span>.")
+				visible_message(span_notice("[copy_board] is ejected from [src]'s circuit reader"))
 				copy_board.forceMove(src.loc)
 				copy_board = null
 			return TRUE
@@ -352,24 +392,29 @@
 /obj/machinery/partslathe/proc/update_recipe_list()
 	if(!partslathe_recipies)
 		partslathe_recipies = list()
-		var/list/paths = subtypesof(/obj/item/weapon/stock_parts)
-		for(var/type in paths)
-			var/obj/item/weapon/stock_parts/I = new type()
-			if(getHighestOriginTechLevel(I) > 1)
-				qdel(I)
-				continue // Ignore high-tech parts
-			if(!I.matter)
-				qdel(I)
-				continue // Ignore parts we can't build
 
-			var/datum/category_item/partslathe/recipie = new()
-			recipie.name = I.name
-			recipie.path = type
-			recipie.resources = list()
-			for(var/material in I.matter)
-				recipie.resources[material] = I.matter[material]*1.25 // More expensive to produce than they are to recycle.
-			partslathe_recipies[type] = recipie
+	var/list/paths = subtypesof(/obj/item/weapon/stock_parts)
+	for(var/type in paths)
+		var/obj/item/weapon/stock_parts/I = new type()
+		//if(getHighestOriginTechLevel(I) > 1)
+		if(istype(I, /obj/item/weapon/stock_parts/subspace))
 			qdel(I)
+			continue // Lets ignore tcomms parts.
+		if(I.rating > tier)
+			qdel(I)
+			continue // Ignore high-tech parts
+		if(!I.matter)
+			qdel(I)
+			continue // Ignore parts we can't build
+
+		var/datum/category_item/partslathe/recipie = new()
+		recipie.name = I.name
+		recipie.path = type
+		recipie.resources = list()
+		for(var/material in I.matter)
+			recipie.resources[material] = I.matter[material]*1.25 // More expensive to produce than they are to recycle.
+		partslathe_recipies[type] = recipie
+		qdel(I)
 
 /***************************
 * Parts Lathe Recipie Type *
