@@ -3642,6 +3642,7 @@
 #include "code\modules\reagents\machinery\dispenser\supply.dm"
 #include "code\modules\reagents\reactions\_reactions.dm"
 #include "code\modules\reagents\reactions\distilling\distilling.dm"
+#include "code\modules\reagents\reactions\distilling\distilling_vr.dm"
 #include "code\modules\reagents\reactions\fusion\fusion.dm"
 #include "code\modules\reagents\reactions\instant\drinks.dm"
 #include "code\modules\reagents\reactions\instant\drinks_vr.dm"
