@@ -10,6 +10,7 @@ export const PartsLathe = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     panelOpen,
+	tier,
     copyBoard,
     copyBoardReqComponents,
     queue,
@@ -18,6 +19,7 @@ export const PartsLathe = (props, context) => {
     error,
     recipies,
   } = data;
+  
   return (
     <Window width={900} height={500} resizable>
       <Window.Content scrollable>
@@ -73,29 +75,36 @@ export const PartsLathe = (props, context) => {
             )}
           </Section>
         )}
-        <Section title="Queue">
-          {queue.length && queue.map((item, i) => (
-            <Box key={item} color="label">
-              #{i + 1}: {toTitleCase(item)}
-              {(i > 0 || !building)
-                && <Button ml={1} icon="times" onClick={() => act("cancel", { cancel: i + 1 })}>Cancel</Button>
-                || null}
-            </Box>
-          )) || (
-            <NoticeBox info>Queue Empty</NoticeBox>
-          )}
-        </Section>
-        <Section title="Recipes">
-          {recipies.length && recipies.map(recipe => (
-            <Box key={recipe.name}>
-              <Button
-                icon="wrench"
-                onClick={() => act("queue", { queue: recipe.type })}>
-                {toTitleCase(recipe.name)}
-              </Button>
-            </Box>
-          ))}
-        </Section>
+		<Flex
+			direction = "row">
+			<Flex.Item grow={1}>
+				<Section title="Recipes">
+				  {recipies.length && recipies.map(recipe => (
+					<Box key={recipe.name}>
+					  <Button
+						icon="wrench"
+						onClick={() => act("queue", { queue: recipe.type })}>
+						{toTitleCase(recipe.name)}
+					  </Button>
+					</Box>
+				  ))}
+				</Section>
+			</Flex.Item>
+			<Flex.Item grow={1}>
+				<Section title="Queue">
+				  {queue.length && queue.map((item, i) => (
+					<Box key={item} color="label">
+					  #{i + 1}: {toTitleCase(item)}
+					  {(i > 0 || !building)
+						&& <Button ml={1} icon="times" onClick={() => act("cancel", { cancel: i + 1 })}>Cancel</Button>
+						|| null}
+					</Box>
+				  )) || (
+					<NoticeBox info>Queue Empty</NoticeBox>
+				  )}
+				</Section>
+			</Flex.Item>
+		</Flex>
       </Window.Content>
     </Window>
   );

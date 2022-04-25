@@ -287,15 +287,17 @@
 /obj/machinery/partslathe/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
 	var/list/data = ..()
 	data["panelOpen"] = panel_open
+	data["tier"] = tier
 
 	var/list/materials_ui = list()
 	for(var/M in materials)
-		materials_ui.Add(list(list(
-			"name" = M,
-			"amount" = materials[M],
-			"sheets" = round(materials[M] / SHEET_MATERIAL_AMOUNT),
-			"removable" = materials[M] >= SHEET_MATERIAL_AMOUNT,
-		)))
+		if(storage_capacity[M] > 0)
+			materials_ui.Add(list(list(
+				"name" = M,
+				"amount" = materials[M],
+				"sheets" = round(materials[M] / SHEET_MATERIAL_AMOUNT),
+				"removable" = materials[M] >= SHEET_MATERIAL_AMOUNT,
+			)))
 	data["materials"] = materials_ui
 
 	data["copyBoard"] = null
@@ -327,7 +329,7 @@
 	var/list/recipies_ui = list()
 	for(var/T in partslathe_recipies)
 		var/datum/category_item/partslathe/R = partslathe_recipies[T]
-		recipies_ui.Add(list(list("name" = R.name, "type" = "[T]")))
+		recipies_ui.Add(list(list("name" = R.name, "type" = "[T]", "rating" = R.tier)))
 	data["recipies"] = recipies_ui
 
 	return data
@@ -410,6 +412,7 @@
 		var/datum/category_item/partslathe/recipie = new()
 		recipie.name = I.name
 		recipie.path = type
+		recipie.tier = I.rating
 		recipie.resources = list()
 		for(var/material in I.matter)
 			recipie.resources[material] = I.matter[material]*1.25 // More expensive to produce than they are to recycle.
@@ -422,6 +425,7 @@
 
 /datum/category_item/partslathe
 	var/path
+	var/tier
 	var/list/resources
 	var/time = 2 // In machine controller ticks, so about 4 seconds.
 
