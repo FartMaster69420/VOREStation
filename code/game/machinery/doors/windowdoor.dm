@@ -63,7 +63,7 @@
 
 /obj/machinery/door/window/Bumped(atom/movable/AM as mob|obj)
 	if (!( ismob(AM) ))
-		var/mob/living/bot/bot = AM
+		var/mob/living/simple_mob/bot/bot = AM
 		if(istype(bot))
 			if(density && src.check_access(bot.botcard))
 				open()

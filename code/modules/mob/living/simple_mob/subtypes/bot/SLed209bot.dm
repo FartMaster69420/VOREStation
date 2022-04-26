@@ -1,4 +1,4 @@
-/mob/living/bot/secbot/ed209/slime
+/mob/living/simple_mob/bot/secbot/ed209/slime
 	name = "SL-ED-209 Security Robot"
 	desc = "A security robot.  He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
@@ -24,13 +24,13 @@
 	retaliates = FALSE
 	var/xeno_stun_strength = 6
 
-/mob/living/bot/secbot/ed209/slime/update_icons()
+/mob/living/simple_mob/bot/secbot/ed209/slime/update_icons()
 	if(on && busy)
 		icon_state = "sled209-c"
 	else
 		icon_state = "sled209[on]"
 
-/mob/living/bot/secbot/ed209/slime/RangedAttack(var/atom/A)
+/mob/living/simple_mob/bot/secbot/ed209/slime/RangedAttack(var/atom/A)
 	if(last_shot + shot_delay > world.time)
 		to_chat(src, "You are not ready to fire yet!")
 		return
@@ -48,7 +48,7 @@
 	P.old_style_target(A)
 	P.fire()
 
-/mob/living/bot/secbot/ed209/slime/UnarmedAttack(var/mob/living/L, var/proximity)
+/mob/living/simple_mob/bot/secbot/ed209/slime/UnarmedAttack(var/mob/living/L, var/proximity)
 	..()
 
 	if(istype(L, /mob/living/simple_mob/slime/xenobio))
@@ -165,7 +165,7 @@
 				build_step++
 				to_chat(user, "<span class='notice'>You complete the ED-209.</span>")
 				var/turf/T = get_turf(src)
-				new /mob/living/bot/secbot/ed209/slime(T,created_name,lasercolor)
+				new /mob/living/simple_mob/bot/secbot/ed209/slime(T,created_name,lasercolor)
 				user.drop_item()
 				qdel(W)
 				user.drop_from_inventory(src)

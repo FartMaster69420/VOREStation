@@ -1,4 +1,4 @@
-/mob/living/bot
+/mob/living/simple_mob/bot
 	name = "Bot"
 	health = 20
 	maxHealth = 20
@@ -41,7 +41,7 @@
 	var/frustration = 0
 	var/max_frustration = 0
 
-/mob/living/bot/New()
+/mob/living/simple_mob/bot/New()
 	..()
 	update_icons()
 
@@ -58,12 +58,12 @@
 		will_patrol = FALSE
 
 // Make sure mapped in units start turned on.
-/mob/living/bot/Initialize()
+/mob/living/simple_mob/bot/Initialize()
 	. = ..()
 	if(on)
 		turn_on() // Update lights and other stuff
 
-/mob/living/bot/Life()
+/mob/living/simple_mob/bot/Life()
 	..()
 	if(health <= 0)
 		death()
@@ -76,7 +76,7 @@
 		spawn(0)
 			handleAI()
 
-/mob/living/bot/updatehealth()
+/mob/living/simple_mob/bot/updatehealth()
 	if(status_flags & GODMODE)
 		health = getMaxHealth()
 		set_stat(CONSCIOUS)
@@ -87,10 +87,10 @@
 	cloneloss = 0
 	halloss = 0
 
-/mob/living/bot/death()
+/mob/living/simple_mob/bot/death()
 	explode()
 
-/mob/living/bot/attackby(var/obj/item/O, var/mob/user)
+/mob/living/simple_mob/bot/attackby(var/obj/item/O, var/mob/user)
 	if(O.GetID())
 		if(access_scanner.allowed(user) && !open)
 			locked = !locked
@@ -141,16 +141,16 @@
 	else
 		..()
 
-/mob/living/bot/attack_ai(var/mob/user)
+/mob/living/simple_mob/bot/attack_ai(var/mob/user)
 	return attack_hand(user)
 
-/mob/living/bot/say_quote(var/message, var/datum/language/speaking = null)
+/mob/living/simple_mob/bot/say_quote(var/message, var/datum/language/speaking = null)
 	return "beeps"
 
-/mob/living/bot/speech_bubble_appearance()
+/mob/living/simple_mob/bot/speech_bubble_appearance()
 	return "machine"
 
-/mob/living/bot/Bump(var/atom/A)
+/mob/living/simple_mob/bot/Bump(var/atom/A)
 	if(on && botcard && istype(A, /obj/machinery/door))
 		var/obj/machinery/door/D = A
 		if(!istype(D, /obj/machinery/door/firedoor) && !istype(D, /obj/machinery/door/blast) && !istype(D, /obj/machinery/door/airlock/lift) && D.check_access(botcard))
@@ -158,10 +158,10 @@
 	else
 		..()
 
-/mob/living/bot/emag_act(var/remaining_charges, var/mob/user)
+/mob/living/simple_mob/bot/emag_act(var/remaining_charges, var/mob/user)
 	return 0
 
-/mob/living/bot/proc/handleAI()
+/mob/living/simple_mob/bot/proc/handleAI()
 	if(ignore_list.len)
 		for(var/atom/A in ignore_list)
 			if(!A || !A.loc || prob(1))
@@ -205,16 +205,16 @@
 						return
 			handleIdle()
 
-/mob/living/bot/proc/handleRegular()
+/mob/living/simple_mob/bot/proc/handleRegular()
 	return
 
-/mob/living/bot/proc/handleAdjacentTarget()
+/mob/living/simple_mob/bot/proc/handleAdjacentTarget()
 	return
 
-/mob/living/bot/proc/handleRangedTarget()
+/mob/living/simple_mob/bot/proc/handleRangedTarget()
 	return
 
-/mob/living/bot/proc/handlePanic()	// Speed modification based on alert level.
+/mob/living/simple_mob/bot/proc/handlePanic()	// Speed modification based on alert level.
 	. = 0
 	switch(get_security_level())
 		if("green")
@@ -240,7 +240,7 @@
 
 	return .
 
-/mob/living/bot/proc/stepToTarget()
+/mob/living/simple_mob/bot/proc/stepToTarget()
 	if(!target || !target.loc)
 		return
 	if(get_dist(src, target) > min_target_dist)
@@ -252,16 +252,16 @@
 			++frustration
 	return
 
-/mob/living/bot/proc/handleFrustrated(var/targ)
+/mob/living/simple_mob/bot/proc/handleFrustrated(var/targ)
 	obstacle = targ ? target_path[1] : patrol_path[1]
 	target_path = list()
 	patrol_path = list()
 	return
 
-/mob/living/bot/proc/lookForTargets()
+/mob/living/simple_mob/bot/proc/lookForTargets()
 	return
 
-/mob/living/bot/proc/confirmTarget(var/atom/A)
+/mob/living/simple_mob/bot/proc/confirmTarget(var/atom/A)
 	if(A.invisibility >= INVISIBILITY_LEVEL_ONE)
 		return 0
 	if(A in ignore_list)
@@ -270,11 +270,11 @@
 		return 0
 	return 1
 
-/mob/living/bot/proc/handlePatrol()
+/mob/living/simple_mob/bot/proc/handlePatrol()
 	makeStep(patrol_path)
 	return
 
-/mob/living/bot/proc/startPatrol()
+/mob/living/simple_mob/bot/proc/startPatrol()
 	var/turf/T = getPatrolTurf()
 	if(T)
 		patrol_path = AStar(get_turf(loc), T, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance, 0, max_patrol_dist, id = botcard, exclude = obstacle)
@@ -283,7 +283,7 @@
 		obstacle = null
 	return
 
-/mob/living/bot/proc/getPatrolTurf()
+/mob/living/simple_mob/bot/proc/getPatrolTurf()
 	var/minDist = INFINITY
 	var/obj/machinery/navbeacon/targ = locate() in get_turf(src)
 
@@ -305,10 +305,10 @@
 		return get_turf(targ)
 	return null
 
-/mob/living/bot/proc/handleIdle()
+/mob/living/simple_mob/bot/proc/handleIdle()
 	return
 
-/mob/living/bot/proc/calcTargetPath()
+/mob/living/simple_mob/bot/proc/calcTargetPath()
 	target_path = AStar(get_turf(loc), get_turf(target), /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance, 0, max_target_dist, id = botcard, exclude = obstacle)
 	if(!target_path)
 		if(target && target.loc)
@@ -317,7 +317,7 @@
 		obstacle = null
 	return
 
-/mob/living/bot/proc/makeStep(var/list/path)
+/mob/living/simple_mob/bot/proc/makeStep(var/list/path)
 	if(!path.len)
 		return 0
 	var/turf/T = path[1]
@@ -327,13 +327,13 @@
 
 	return step_towards(src, T)
 
-/mob/living/bot/proc/resetTarget()
+/mob/living/simple_mob/bot/proc/resetTarget()
 	target = null
 	target_path = list()
 	frustration = 0
 	obstacle = null
 
-/mob/living/bot/proc/turn_on()
+/mob/living/simple_mob/bot/proc/turn_on()
 	if(stat)
 		return 0
 	on = 1
@@ -344,16 +344,16 @@
 	ignore_list = list()
 	return 1
 
-/mob/living/bot/proc/turn_off()
+/mob/living/simple_mob/bot/proc/turn_off()
 	on = 0
 	busy = 0 // If ever stuck... reboot!
 	set_light(0)
 	update_icons()
 
-/mob/living/bot/proc/explode()
+/mob/living/simple_mob/bot/proc/explode()
 	qdel(src)
 
-/mob/living/bot/is_sentient()
+/mob/living/simple_mob/bot/is_sentient()
 	return FALSE
 
 /******************************************************************/
@@ -441,5 +441,5 @@
 	return 0
 
 
-/mob/living/bot/isSynthetic() //Robots are synthetic, no?
+/mob/living/simple_mob/bot/isSynthetic() //Robots are synthetic, no?
 	return 1

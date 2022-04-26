@@ -13,7 +13,7 @@
 #define MEDBOT_MIN_HEAL 0.1
 #define MEDBOT_MAX_HEAL 75
 
-/mob/living/bot/medbot
+/mob/living/simple_mob/bot/medbot
 	name = "Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
 	icon_state = "medibot0"
@@ -48,7 +48,7 @@
 	//The last time we were tipped/righted and said a voice line, to avoid spam
 	var/last_tipping_action_voice = 0
 
-/mob/living/bot/medbot/mysterious
+/mob/living/simple_mob/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
@@ -57,7 +57,7 @@
 	treatment_oxy		= "dexalin"
 	treatment_tox		= "anti_toxin"
 
-/mob/living/bot/medbot/handleIdle()
+/mob/living/simple_mob/bot/medbot/handleIdle()
 	if(is_tipped) // Don't handle idle things if we're incapacitated!
 		return
 
@@ -73,13 +73,13 @@
 		say(message)
 		playsound(src, message_options[message], 50, 0)
 
-/mob/living/bot/medbot/handleAdjacentTarget()
+/mob/living/simple_mob/bot/medbot/handleAdjacentTarget()
 	if(is_tipped) // Don't handle targets if we're incapacitated!
 		return
 
 	UnarmedAttack(target)
 
-/mob/living/bot/medbot/handlePanic()	// Speed modification based on alert level.
+/mob/living/simple_mob/bot/medbot/handlePanic()	// Speed modification based on alert level.
 	. = 0
 	switch(get_security_level())
 		if("green")
@@ -105,7 +105,7 @@
 
 	return .
 
-/mob/living/bot/medbot/lookForTargets()
+/mob/living/simple_mob/bot/medbot/lookForTargets()
 	if(is_tipped) // Don't look for targets if we're incapacitated!
 		return
 
@@ -126,7 +126,7 @@
 				last_newpatient_speak = world.time
 			break
 
-/mob/living/bot/medbot/UnarmedAttack(var/mob/living/carbon/human/H)
+/mob/living/simple_mob/bot/medbot/UnarmedAttack(var/mob/living/carbon/human/H)
 	if(!..())
 		return
 
@@ -186,7 +186,7 @@
 	busy = 0
 	update_icons()
 
-/mob/living/bot/medbot/update_icons()
+/mob/living/simple_mob/bot/medbot/update_icons()
 	cut_overlays()
 	if(skin)
 		add_overlay("medskin_[skin]")
@@ -195,7 +195,7 @@
 	else
 		icon_state = "medibot[on]"
 
-/mob/living/bot/medbot/attack_hand(mob/living/carbon/human/H)
+/mob/living/simple_mob/bot/medbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == I_DISARM && !is_tipped)
 		H.visible_message("<span class='danger'>[H] begins tipping over [src].</span>", "<span class='warning'>You begin tipping over [src]...</span>")
 
@@ -216,7 +216,7 @@
 	else
 		tgui_interact(H)
 
-/mob/living/bot/medbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/medbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
 	var/list/data = ..()
 	data["on"] = on
 	data["open"] = open
@@ -242,13 +242,13 @@
 		data["vocal"] = vocal
 	return data
 
-/mob/living/bot/medbot/tgui_interact(mob/user, datum/tgui/ui)
+/mob/living/simple_mob/bot/medbot/tgui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Medbot", name)
 		ui.open()
 
-/mob/living/bot/medbot/attackby(var/obj/item/O, var/mob/user)
+/mob/living/simple_mob/bot/medbot/attackby(var/obj/item/O, var/mob/user)
 	if(istype(O, /obj/item/weapon/reagent_containers/glass))
 		if(locked)
 			to_chat(user, "<span class='notice'>You cannot insert a beaker because the panel is locked.</span>")
@@ -265,13 +265,13 @@
 	else
 		..()
 
-/mob/living/bot/medbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/medbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	if(..())
 		return TRUE
-	
+
 	usr.set_machine(src)
 	add_fingerprint(usr)
-	
+
 	. = TRUE
 	switch(action)
 		if("power")
@@ -312,7 +312,7 @@
 			declare_treatment = !declare_treatment
 			. = TRUE
 
-/mob/living/bot/medbot/emag_act(var/remaining_uses, var/mob/user)
+/mob/living/simple_mob/bot/medbot/emag_act(var/remaining_uses, var/mob/user)
 	. = ..()
 	if(!emagged)
 		if(user)
@@ -327,7 +327,7 @@
 		. = 1
 	ignore_list |= user
 
-/mob/living/bot/medbot/explode()
+/mob/living/simple_mob/bot/medbot/explode()
 	on = 0
 	visible_message("<span class='danger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
@@ -351,14 +351,14 @@
 	qdel(src)
 	return
 
-/mob/living/bot/medbot/handleRegular()
+/mob/living/simple_mob/bot/medbot/handleRegular()
 	. = ..()
 
 	if(is_tipped)
 		handle_panic()
 		return
 
-/mob/living/bot/medbot/proc/tip_over(mob/user)
+/mob/living/simple_mob/bot/medbot/proc/tip_over(mob/user)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 	user.visible_message("<span class='danger'>[user] tips over [src]!</span>", "<span class='danger'>You tip [src] over!</span>")
 	is_tipped = TRUE
@@ -366,7 +366,7 @@
 	var/matrix/mat = transform
 	transform = mat.Turn(180)
 
-/mob/living/bot/medbot/proc/set_right(mob/user)
+/mob/living/simple_mob/bot/medbot/proc/set_right(mob/user)
 	var/list/messagevoice
 	if(user)
 		user.visible_message("<span class='notice'>[user] sets [src] right-side up!</span>", "<span class='green'>You set [src] right-side up!</span>")
@@ -389,7 +389,7 @@
 	transform = matrix()
 
 // if someone tipped us over, check whether we should ask for help or just right ourselves eventually
-/mob/living/bot/medbot/proc/handle_panic()
+/mob/living/simple_mob/bot/medbot/proc/handle_panic()
 	tipped_status++
 	var/list/messagevoice
 	switch(tipped_status)
@@ -417,7 +417,7 @@
 	else if(prob(tipped_status * 0.2))
 		playsound(src, 'sound/machines/warning-buzzer.ogg', 30, extrarange=-2)
 
-/mob/living/bot/medbot/examine(mob/user)
+/mob/living/simple_mob/bot/medbot/examine(mob/user)
 	. = ..()
 	if(tipped_status == MEDBOT_PANIC_NONE)
 		return
@@ -434,7 +434,7 @@
 		if(MEDBOT_PANIC_FUCK to INFINITY)
 			. += "<span class='warning'><b>They are freaking out from being tipped over!</b></span>"
 
-/mob/living/bot/medbot/confirmTarget(var/mob/living/carbon/human/H)
+/mob/living/simple_mob/bot/medbot/confirmTarget(var/mob/living/carbon/human/H)
 	if(!..())
 		return 0
 
@@ -558,7 +558,7 @@
 					qdel(W)
 					to_chat(user, "<span class='notice'>You complete the Medibot! Beep boop.</span>")
 					var/turf/T = get_turf(src)
-					var/mob/living/bot/medbot/S = new /mob/living/bot/medbot(T)
+					var/mob/living/simple_mob/bot/medbot/S = new /mob/living/simple_mob/bot/medbot(T)
 					S.skin = skin
 					S.name = created_name
 					user.drop_from_inventory(src)

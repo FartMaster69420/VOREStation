@@ -3,7 +3,7 @@
 #define FARMBOT_UPROOT 3
 #define FARMBOT_NUTRIMENT 4
 
-/mob/living/bot/farmbot
+/mob/living/simple_mob/bot/farmbot
 	name = "Farmbot"
 	desc = "The botanist's best friend."
 	icon = 'icons/obj/chemical_tanks.dmi'
@@ -23,20 +23,20 @@
 	var/obj/structure/reagent_dispensers/watertank/tank
 
 
-/mob/living/bot/farmbot/New(var/newloc, var/newTank)
+/mob/living/simple_mob/bot/farmbot/New(var/newloc, var/newTank)
 	..(newloc)
 	if(!newTank)
 		newTank = new /obj/structure/reagent_dispensers/watertank(src)
 	tank = newTank
 	tank.forceMove(src)
 
-/mob/living/bot/farmbot/tgui_interact(mob/user, datum/tgui/ui)
+/mob/living/simple_mob/bot/farmbot/tgui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Farmbot", name)
 		ui.open()
 
-/mob/living/bot/farmbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/farmbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
 	var/list/data = ..()
 
 	data["on"] = on
@@ -64,13 +64,13 @@
 	return data
 
 
-/mob/living/bot/farmbot/attack_hand(mob/user)
+/mob/living/simple_mob/bot/farmbot/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
 	tgui_interact(user)
 
-/mob/living/bot/farmbot/emag_act(var/remaining_charges, var/mob/user)
+/mob/living/simple_mob/bot/farmbot/emag_act(var/remaining_charges, var/mob/user)
 	. = ..()
 	if(!emagged)
 		if(user)
@@ -80,7 +80,7 @@
 			emagged = 1
 		return 1
 
-/mob/living/bot/farmbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/farmbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	if(..())
 		return TRUE
 
@@ -122,20 +122,20 @@
 		// VOREStation Edit End
 
 
-/mob/living/bot/farmbot/update_icons()
+/mob/living/simple_mob/bot/farmbot/update_icons()
 	if(on && action)
 		icon_state = "farmbot_[action]"
 	else
 		icon_state = "farmbot[on]"
 
-/mob/living/bot/farmbot/handleRegular()
+/mob/living/simple_mob/bot/farmbot/handleRegular()
 	if(emagged && prob(1))
 		flick("farmbot_broke", src)
 
-/mob/living/bot/farmbot/handleAdjacentTarget()
+/mob/living/simple_mob/bot/farmbot/handleAdjacentTarget()
 	UnarmedAttack(target)
 
-/mob/living/bot/farmbot/lookForTargets()
+/mob/living/simple_mob/bot/farmbot/lookForTargets()
 	if(emagged)
 		for(var/mob/living/carbon/human/H in view(7, src))
 			target = H
@@ -154,7 +154,7 @@
 				return
 	if(++times_idle == 150) turn_off() //VOREStation Add - Idle shutoff time
 
-/mob/living/bot/farmbot/calcTargetPath() // We need to land NEXT to the tray, because the tray itself is impassable
+/mob/living/simple_mob/bot/farmbot/calcTargetPath() // We need to land NEXT to the tray, because the tray itself is impassable
 	for(var/trayDir in list(NORTH, SOUTH, EAST, WEST))
 		target_path = AStar(get_turf(loc), get_step(get_turf(target), trayDir), /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance, 0, max_target_dist, id = botcard)
 		if(target_path)
@@ -165,14 +165,14 @@
 		target_path = list()
 	return
 
-/mob/living/bot/farmbot/stepToTarget() // Same reason
+/mob/living/simple_mob/bot/farmbot/stepToTarget() // Same reason
 	var/turf/T = get_turf(target)
 	if(!target_path.len || !T.Adjacent(target_path[target_path.len]))
 		calcTargetPath()
 	makeStep(target_path)
 	return
 
-/mob/living/bot/farmbot/UnarmedAttack(var/atom/A, var/proximity)
+/mob/living/simple_mob/bot/farmbot/UnarmedAttack(var/atom/A, var/proximity)
 	if(!..())
 		return
 
@@ -268,7 +268,7 @@
 				visible_message("<span class='danger'>[src] splashes [A] with water!</span>")
 				tank.reagents.splash(A, 100)
 
-/mob/living/bot/farmbot/explode()
+/mob/living/simple_mob/bot/farmbot/explode()
 	visible_message("<span class='danger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
@@ -290,7 +290,7 @@
 	return
 
 
-/mob/living/bot/farmbot/confirmTarget(var/atom/targ)
+/mob/living/simple_mob/bot/farmbot/confirmTarget(var/atom/targ)
 	if(!..())
 		return 0
 
@@ -401,7 +401,7 @@
 		build_step++
 		to_chat(user, "You complete the Farmbot! Beep boop.")
 
-		var/mob/living/bot/farmbot/S = new /mob/living/bot/farmbot(get_turf(src), tank)
+		var/mob/living/simple_mob/bot/farmbot/S = new /mob/living/simple_mob/bot/farmbot(get_turf(src), tank)
 		S.name = created_name
 
 		user.remove_from_mob(W)
