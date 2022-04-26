@@ -6,9 +6,9 @@
 	var/obj/item/device/pda/hostpda = null
 
 	var/list/botlist = null		// list of bots
-	var/mob/living/bot/active 	// the active bot; if null, show bot list
+	var/mob/living/simple_mob/bot/active 	// the active bot; if null, show bot list
 	var/list/botstatus			// the status signal sent by the bot
-	
+
 	var/bot_type				//The type of bot it is.
 	var/bot_filter				//Determines which radio filter to use.
 
@@ -77,7 +77,7 @@
 				post_signal(control_freq, "command", "bot_status", "active", active, s_filter = bot_filter)
 
 /obj/item/radio/integrated/receive_signal(datum/signal/signal)
-	if(bot_type && istype(signal.source, /mob/living/bot) && signal.data["type"] == bot_type)
+	if(bot_type && istype(signal.source, /mob/living/simple_mob/bot) && signal.data["type"] == bot_type)
 		if(!botlist)
 			botlist = new()
 

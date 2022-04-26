@@ -477,7 +477,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["trackbot"])
-		var/mob/living/bot/target = locate(href_list["trackbot"]) in mob_list
+		var/mob/living/simple_mob/bot/target = locate(href_list["trackbot"]) in mob_list
 		if(target)
 			ai_actual_track(target)
 		else
@@ -951,7 +951,7 @@ var/list/ai_verbs_default = list(
 		else // We couldn't find a mob with their fake name, don't track at all
 			track = "[speaker_name] ([jobname])"
 	else // Not faking their name
-		if(istype(speaker, /mob/living/bot)) // It's a bot, and no fake name! (That'd be kinda weird.) :p
+		if(istype(speaker, /mob/living/simple_mob/bot)) // It's a bot, and no fake name! (That'd be kinda weird.) :p
 			track = "<a href='byond://?src=\ref[src];trackbot=\ref[speaker]'>[speaker_name] ([jobname])</a>"
 		else // It's not a bot, and no fake name!
 			track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[speaker]'>[speaker_name] ([jobname])</a>"
