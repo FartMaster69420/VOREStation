@@ -308,7 +308,7 @@
 
 //mob/living/simple_mob/bot/secbot/UnarmedAttack(var/mob/M, var/proximity)
 /mob/living/simple_mob/bot/secbot/apply_melee_effects(var/mob/living/M)
-	return
+	//return
 	if(!..())
 		return
 
