@@ -31,8 +31,8 @@
 
 	if(!the_target || !botMob.confirmTarget(the_target))
 		return FALSE
-	//if(holder.Adjacent(the_target))
-	//	botMob.handleAdjacentTarget(the_target)
+	if(holder.Adjacent(the_target) && !botMob.busy)
+		botMob.handleAdjacentTarget(the_target)
 	/*
 	if(istype(the_target, /mob/living/simple_mob/slime/xenobio))
 		var/mob/living/simple_mob/slime/xenobio/target = the_target
