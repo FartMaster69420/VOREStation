@@ -8,6 +8,7 @@
 	density = FALSE
 	faction = "Station"
 	makes_dirt = FALSE	// No more dirt from Beepsky
+	status_flags = CANPUSH
 
 	var/obj/item/weapon/card/id/botcard = null
 	var/list/botcard_access = list()

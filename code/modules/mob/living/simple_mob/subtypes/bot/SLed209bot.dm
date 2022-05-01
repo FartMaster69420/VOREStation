@@ -6,7 +6,6 @@
 	density = TRUE
 	health = 200
 	maxHealth = 200
-	ai_holder_type = /datum/ai_holder/simple_mob/bot/secbot/ed209
 	projectilesound = 'sound/weapons/laser3.ogg'
 	projectiletype = /obj/item/projectile/beam/stun/xeno
 	is_ranged = 1

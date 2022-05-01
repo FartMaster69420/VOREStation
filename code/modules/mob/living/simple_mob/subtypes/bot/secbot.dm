@@ -12,6 +12,7 @@
 	botcard_access = list(access_security, access_sec_doors, access_forensics_lockers, access_maint_tunnels)
 	patrol_speed = 2
 	target_speed = 3
+	ai_holder_type = /datum/ai_holder/simple_mob/bot/secbot
 
 	density = TRUE
 
