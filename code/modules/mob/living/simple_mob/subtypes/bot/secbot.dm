@@ -265,8 +265,18 @@
 			if(!ishuman(target))
 				action = "fighting"
 			global_announcer.autosay("[src] is [action] a level [threat] [action != "fighting" ? "suspect" : "threat"] <b>[target_name(target)]</b> in <b>[get_area(src)]</b>.", "[src]", "Security")
-		apply_attack(target)
+		arrest(H)
 
+/mob/living/simple_mob/bot/secbot/proc/arrest(var/mob/living/carbon/human/H)
+	if(!istype(H))
+		return
+	if(do_mob(src, H, 60))
+		if(!H.handcuffed)
+			if(istype(H.back, /obj/item/weapon/rig) && istype(H.gloves,/obj/item/clothing/gloves/gauntlets/rig))
+				H.handcuffed = new /obj/item/weapon/handcuffs/cable(H) // Better to be cable cuffed than stun-locked
+			else
+				H.handcuffed = new /obj/item/weapon/handcuffs(H)
+			H.update_handcuffed()
 /mob/living/simple_mob/bot/secbot/handlePanic()	// Speed modification based on alert level.
 	. = 0
 	switch(get_security_level())
