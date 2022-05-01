@@ -6,7 +6,7 @@
 	layer = MOB_LAYER
 	universal_speak = 1
 	density = FALSE
-
+	faction = "Station"
 	makes_dirt = FALSE	// No more dirt from Beepsky
 
 	var/obj/item/weapon/card/id/botcard = null
@@ -72,7 +72,7 @@
 	SetStunned(0)
 	SetParalysis(0)
 
-	if(on && !client && !busy)
+	if(on && !client && !busy && !ai_holder) //Checking for AI Holders, that should stop bot AI from running if we use an AI Holder. Otherwise, it will default to old bot AI.
 		spawn(0)
 			handleAI()
 
