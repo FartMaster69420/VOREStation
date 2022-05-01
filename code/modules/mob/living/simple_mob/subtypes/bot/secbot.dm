@@ -306,7 +306,9 @@
 		can_next_insult = world.time + 5 SECONDS
 
 
-/mob/living/simple_mob/bot/secbot/UnarmedAttack(var/mob/M, var/proximity)
+//mob/living/simple_mob/bot/secbot/UnarmedAttack(var/mob/M, var/proximity)
+/mob/living/simple_mob/bot/secbot/apply_melee_effects(var/mob/living/M)
+	return
 	if(!..())
 		return
 
@@ -355,7 +357,7 @@
 		visible_message("<span class='warning'>\The [M] was beaten by \the [src] with a stun baton!</span>")
 		insult(L)
 
-/mob/living/simple_mob/bot/secbot/slime/UnarmedAttack(var/mob/living/L, var/proximity)
+/mob/living/simple_mob/bot/secbot/slime/apply_melee_effects(var/mob/living/L)
 	..()
 
 	if(istype(L, /mob/living/simple_mob/slime/xenobio))

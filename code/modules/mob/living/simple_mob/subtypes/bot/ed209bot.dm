@@ -6,6 +6,8 @@
 	density = TRUE
 	health = 200
 	maxHealth = 200
+	projectilesound = 'sound/weapons/Taser.ogg'
+	projectiletype = /obj/item/projectile/beam/stun
 
 	is_ranged = 1
 	preparing_arrest_sounds = new()
