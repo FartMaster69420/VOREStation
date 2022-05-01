@@ -13,7 +13,6 @@
 	patrol_speed = 2
 	target_speed = 3
 	ai_holder_type = /datum/ai_holder/simple_mob/bot/secbot
-
 	density = TRUE
 
 	var/default_icon_state = "secbot"
@@ -266,7 +265,7 @@
 			if(!ishuman(target))
 				action = "fighting"
 			global_announcer.autosay("[src] is [action] a level [threat] [action != "fighting" ? "suspect" : "threat"] <b>[target_name(target)]</b> in <b>[get_area(src)]</b>.", "[src]", "Security")
-		UnarmedAttack(target)
+		apply_attack(target)
 
 /mob/living/simple_mob/bot/secbot/handlePanic()	// Speed modification based on alert level.
 	. = 0
@@ -307,11 +306,8 @@
 
 
 //mob/living/simple_mob/bot/secbot/UnarmedAttack(var/mob/M, var/proximity)
-/mob/living/simple_mob/bot/secbot/apply_melee_effects(var/mob/living/M)
+/mob/living/simple_mob/bot/secbot/apply_attack(var/mob/living/M)
 	//return
-	if(!..())
-		return
-
 	if(!istype(M))
 		return
 
@@ -357,7 +353,7 @@
 		visible_message("<span class='warning'>\The [M] was beaten by \the [src] with a stun baton!</span>")
 		insult(L)
 
-/mob/living/simple_mob/bot/secbot/slime/apply_melee_effects(var/mob/living/L)
+/mob/living/simple_mob/bot/secbot/slime/apply_attack(var/mob/living/L)
 	..()
 
 	if(istype(L, /mob/living/simple_mob/slime/xenobio))
