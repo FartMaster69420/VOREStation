@@ -34,7 +34,7 @@
 		/obj/machinery/atmospherics/unary/cryo_cell,
 		/obj/machinery/dna_scannernew,
 		/obj/item/weapon/grenade/chem_grenade,
-		/mob/living/bot/medbot,
+		/mob/living/simple_mob/bot/medbot,
 		/obj/item/weapon/storage/secure/safe,
 		/obj/machinery/iv_drip,
 		/obj/structure/medical_stand, //VOREStation Add,

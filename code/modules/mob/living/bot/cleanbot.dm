@@ -1,4 +1,4 @@
-/mob/living/bot/cleanbot
+/mob/living/simple_mob/bot/cleanbot
 	name = "Cleanbot"
 	desc = "A little cleaning robot, it looks so excited!"
 	icon_state = "cleanbot0"
@@ -16,16 +16,16 @@
 	var/spray_blood = 0
 	var/list/target_types = list()
 
-/mob/living/bot/cleanbot/New()
+/mob/living/simple_mob/bot/cleanbot/New()
 	..()
 	get_targets()
 
-/mob/living/bot/cleanbot/Destroy()
+/mob/living/simple_mob/bot/cleanbot/Destroy()
 	if(target)
 		cleanbot_reserved_turfs -= target
 	return ..()
 
-/mob/living/bot/cleanbot/handleIdle()
+/mob/living/simple_mob/bot/cleanbot/handleIdle()
 	if(!wet_floors && !spray_blood && vocal && prob(2))
 		custom_emote(2, "makes an excited booping sound!")
 		playsound(src, 'sound/machines/synth_yes.ogg', 50, 0)
@@ -44,7 +44,7 @@
 		spawn(600)
 			ignore_list -= g
 
-/mob/living/bot/cleanbot/handlePanic()	// Speed modification based on alert level.
+/mob/living/simple_mob/bot/cleanbot/handlePanic()	// Speed modification based on alert level.
 	. = 0
 	switch(get_security_level())
 		if("green")
@@ -70,7 +70,7 @@
 
 	return .
 
-/mob/living/bot/cleanbot/lookForTargets()
+/mob/living/simple_mob/bot/cleanbot/lookForTargets()
 	for(var/i = 0, i <= world.view, i++)
 		for(var/obj/effect/decal/cleanable/D in view(i, src))
 			if (i > 0 && get_dist(src, D) < i)
@@ -80,11 +80,11 @@
 				cleanbot_reserved_turfs += D
 				return
 
-/mob/living/bot/resetTarget()
+/mob/living/simple_mob/bot/resetTarget()
 	cleanbot_reserved_turfs -= target
 	..()
 
-/mob/living/bot/cleanbot/confirmTarget(var/obj/effect/decal/cleanable/D)
+/mob/living/simple_mob/bot/cleanbot/confirmTarget(var/obj/effect/decal/cleanable/D)
 	if(!..())
 		return FALSE
 	if(D.loc in cleanbot_reserved_turfs)
@@ -95,15 +95,16 @@
 	return FALSE
 
 
-/mob/living/bot/cleanbot/handleAdjacentTarget()
+/mob/living/simple_mob/bot/cleanbot/handleAdjacentTarget()
 	if(get_turf(target) == src.loc)
 		UnarmedAttack(target)
 
-/mob/living/bot/cleanbot/UnarmedAttack(var/obj/effect/decal/cleanable/D, var/proximity)
+/mob/living/simple_mob/bot/cleanbot/UnarmedAttack(var/atom/D, var/proximity)
 	if(!..())
 		return
 
-	if(!istype(D))
+	//if(!istype(D))
+	if(!istype(D, /turf) && !istype(D, /obj/effect/decal/cleanable) && !istype(D, /obj/effect/overlay) && !istype(D, /obj/effect/rune))
 		return
 
 	if(D.loc != loc)
@@ -113,9 +114,23 @@
 	if(prob(20))
 		custom_emote(2, "begins to clean up \the [D]")
 	update_icons()
-	var/cleantime = istype(D, /obj/effect/decal/cleanable/dirt) ? 10 : 50
+	var/turf/simulated/T = get_turf(D)
+	var/cleantime = 0
+	for(var/obj/effect/dirty in  T.contents)
+		if(istype(dirty))
+			if(istype(D, /obj/effect/decal/cleanable/dirt))
+				cleantime += 10
+			else if(istype(dirty,/obj/effect/rune) || istype(dirty,/obj/effect/decal/cleanable) || istype(dirty,/obj/effect/overlay))
+				cleantime += 50
+
 	if(do_after(src, cleantime))
-		if(istype(loc, /turf/simulated))
+		clean_blood()
+		if(istype(T))
+			T.dirt = 0
+		for(var/obj/effect/O in T.contents)
+			if(istype(O,/obj/effect/rune) || istype(O,/obj/effect/decal/cleanable) || istype(O,/obj/effect/overlay))
+				qdel(O)
+		/*if(istype(loc, /turf/simulated))
 			var/turf/simulated/f = loc
 			f.dirt = 0
 		if(!D)
@@ -124,10 +139,11 @@
 		if(D == target)
 			cleanbot_reserved_turfs -= target
 			target = null
+			*/
 	busy = 0
 	update_icons()
 
-/mob/living/bot/cleanbot/explode()
+/mob/living/simple_mob/bot/cleanbot/explode()
 	on = 0
 	visible_message("<span class='danger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
@@ -143,22 +159,22 @@
 	//qdel(src)
 	return ..()
 
-/mob/living/bot/cleanbot/update_icons()
+/mob/living/simple_mob/bot/cleanbot/update_icons()
 	if(busy)
 		icon_state = "cleanbot-c"
 	else
 		icon_state = "cleanbot[on]"
 
-/mob/living/bot/cleanbot/attack_hand(var/mob/user)
+/mob/living/simple_mob/bot/cleanbot/attack_hand(var/mob/user)
 	tgui_interact(user)
 
-/mob/living/bot/cleanbot/tgui_interact(mob/user, datum/tgui/ui)
+/mob/living/simple_mob/bot/cleanbot/tgui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Cleanbot", name)
 		ui.open()
 
-/mob/living/bot/cleanbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/cleanbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
 	var/list/data = ..()
 	data["on"] = on
 	data["open"] = open
@@ -172,7 +188,7 @@
 	data["version"] = "v2.0"
 	return data
 
-/mob/living/bot/cleanbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/cleanbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	if(..())
 		return TRUE
 	usr.set_machine(src)
@@ -200,7 +216,7 @@
 			to_chat(usr, "<span class='notice'>You press the weird button.</span>")
 			. = TRUE
 
-/mob/living/bot/cleanbot/emag_act(var/remaining_uses, var/mob/user)
+/mob/living/simple_mob/bot/cleanbot/emag_act(var/remaining_uses, var/mob/user)
 	. = ..()
 	if(!wet_floors || !spray_blood)
 		if(user)
@@ -210,7 +226,7 @@
 		wet_floors = 1
 		return 1
 
-/mob/living/bot/cleanbot/proc/get_targets()
+/mob/living/simple_mob/bot/cleanbot/proc/get_targets()
 	target_types = list(/obj/effect/decal/cleanable)
 
 /* Assembly */
@@ -233,7 +249,7 @@
 		user.drop_item()
 		qdel(W)
 		var/turf/T = get_turf(loc)
-		var/mob/living/bot/cleanbot/A = new /mob/living/bot/cleanbot(T)
+		var/mob/living/simple_mob/bot/cleanbot/A = new /mob/living/simple_mob/bot/cleanbot(T)
 		A.name = created_name
 		to_chat(user, "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>")
 		user.drop_from_inventory(src)

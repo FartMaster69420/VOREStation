@@ -212,7 +212,7 @@
 /atom/movable/proc/GetIdCard()
 	return null
 
-/mob/living/bot/GetIdCard()
+/mob/living/simple_mob/bot/GetIdCard()
 	return botcard
 
 /mob/living/carbon/human/GetIdCard()

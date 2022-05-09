@@ -1,4 +1,4 @@
-/mob/living/bot/cleanbot/edCLN
+/mob/living/simple_mob/bot/cleanbot/edCLN
 	name = "ED-CLN Cleaning Robot"
 	desc = "A large cleaning robot. It looks rather efficient."
 	icon_state = "edCLN0"
@@ -18,13 +18,13 @@
 	var/blue_switch = 0
 	var/green_switch = 0
 
-/mob/living/bot/cleanbot/edCLN/update_icons()
+/mob/living/simple_mob/bot/cleanbot/edCLN/update_icons()
 	if(on && busy)
 		icon_state = "edCLN"
 	else
 		icon_state = "edCLN[on]"
 
-/mob/living/bot/cleanbot/edCLN/handleIdle()
+/mob/living/simple_mob/bot/cleanbot/edCLN/handleIdle()
 	if(vocal && prob(10))
 		custom_emote(2, "makes a less than thrilled beeping sound.")
 		playsound(src, 'sound/machines/synth_yes.ogg', 50, 0)
@@ -49,7 +49,7 @@
 	if(red_switch && blue_switch && green_switch && prob(1))
 		src.explode()
 
-/mob/living/bot/cleanbot/edCLN/explode()
+/mob/living/simple_mob/bot/cleanbot/edCLN/explode()
 	on = 0
 	visible_message("<span class='danger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
@@ -71,7 +71,7 @@
 	//qdel(src)
 	return ..()
 
-/mob/living/bot/cleanbot/edCLN/tgui_data(mob/user)
+/mob/living/simple_mob/bot/cleanbot/edCLN/tgui_data(mob/user)
 	var/list/data = ..()
 	data["version"] = "v3.0"
 	data["rgbpanel"] = TRUE
@@ -80,7 +80,7 @@
 	data["blue_switch"] = blue_switch
 	return data
 
-/mob/living/bot/cleanbot/edCLN/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/cleanbot/edCLN/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	if(..())
 		return TRUE
 	switch(action)
@@ -97,7 +97,7 @@
 			to_chat(usr, "<span class='notice'>You flip the blue switch [blue_switch ? "on" : "off"].</span>")
 			. = TRUE
 
-/mob/living/bot/cleanbot/edCLN/emag_act(var/remaining_uses, var/mob/user)
+/mob/living/simple_mob/bot/cleanbot/edCLN/emag_act(var/remaining_uses, var/mob/user)
 	. = ..()
 	if(!emagged)
 		if(user)
@@ -207,7 +207,7 @@
 				build_step++
 				to_chat(user, "<span class='notice'>You complete the ED-CLN.</span>")
 				var/turf/T = get_turf(src)
-				var/mob/living/bot/cleanbot/edCLN/S = new /mob/living/bot/cleanbot/edCLN(T)
+				var/mob/living/simple_mob/bot/cleanbot/edCLN/S = new /mob/living/simple_mob/bot/cleanbot/edCLN(T)
 				S.name = created_name
 				user.drop_item()
 				qdel(W)

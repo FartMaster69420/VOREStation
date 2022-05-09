@@ -102,7 +102,7 @@
 	name = "Mulebot crate"
 	desc = "A hefty wooden crate labelled 'Proud Product of the Xion Manufacturing Group'"
 	icon_state = "mulecrate"
-	starts_with = list(/mob/living/bot/mulebot)
+	starts_with = list(/mob/living/simple_mob/bot/mulebot)
 
 /obj/structure/largecrate/animal/corgi
 	name = "corgi carrier"

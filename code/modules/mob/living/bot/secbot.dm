@@ -2,7 +2,7 @@
 #define SECBOT_THREAT_ARREST 4		//threat level at which we decide to arrest someone
 #define SECBOT_THREAT_ATTACK 8		//threat level at which was assume immediate danger and attack right away
 
-/mob/living/bot/secbot
+/mob/living/simple_mob/bot/secbot
 	name = "Securitron"
 	desc = "A little security robot.  He looks less than thrilled."
 	icon_state = "secbot0"
@@ -38,7 +38,7 @@
 	var/list/preparing_arrest_sounds = list('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/bcreep.ogg')
 	var/list/fighting_sounds = list('sound/voice/biamthelaw.ogg', 'sound/voice/bradio.ogg', 'sound/voice/bjustice.ogg')
 //VOREStation Add - They don't like being pulled. This is going to fuck with slimesky, but meh.	//Screw you. Just screw you and your 'meh'
-/mob/living/bot/secbot/Life()
+/mob/living/simple_mob/bot/secbot/Life()
 	..()
 	if(health > 0 && on && pulledby)
 		if(isliving(pulledby))
@@ -52,14 +52,14 @@
 				say("Do not interfere with active law enforcement routines!")
 				global_announcer.autosay("[src] was interfered with in <b>[get_area(src)]</b>, activating defense routines.", "[src]", "Security")
 //VOREStation Add End
-/mob/living/bot/secbot/beepsky
+/mob/living/simple_mob/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "It's Officer Beep O'sky! Powered by a potato and a shot of whiskey."
 	will_patrol = TRUE
 	maxHealth = 130
 	health = 130
 
-/mob/living/bot/secbot/slime
+/mob/living/simple_mob/bot/secbot/slime
 	name = "Slime Securitron"
 	desc = "A little security robot, with a slime baton subsituted for the regular one."
 	default_icon_state = "slimesecbot"
@@ -73,13 +73,13 @@
 	used_weapon = /obj/item/weapon/melee/baton/slime
 	var/xeno_stun_strength = 5 // How hard to slimebatoned()'d naughty slimes. 5 works out to 2 discipline and 5 weaken.
 
-/mob/living/bot/secbot/slime/slimesky
+/mob/living/simple_mob/bot/secbot/slime/slimesky
 	name = "Doctor Slimesky"
 	desc = "An old friend of Officer Beep O'sky.  He prescribes beatings to rowdy slimes so that real doctors don't need to treat the xenobiologists."
 	maxHealth = 130
 	health = 130
 
-/mob/living/bot/secbot/update_icons()
+/mob/living/simple_mob/bot/secbot/update_icons()
 	if(on && busy)
 		icon_state = "[default_icon_state]-c"
 	else
@@ -90,13 +90,13 @@
 	else
 		set_light(0)
 
-/mob/living/bot/secbot/tgui_interact(mob/user, datum/tgui/ui)
+/mob/living/simple_mob/bot/secbot/tgui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Secbot", name)
 		ui.open()
 
-/mob/living/bot/secbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/secbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
 	var/list/data = ..()
 
 	data["on"] = on
@@ -122,10 +122,10 @@
 
 	return data
 
-/mob/living/bot/secbot/attack_hand(var/mob/user)
+/mob/living/simple_mob/bot/secbot/attack_hand(var/mob/user)
 	tgui_interact(user)
 
-/mob/living/bot/secbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/secbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	if(..())
 		return
 
@@ -164,7 +164,7 @@
 			declare_arrests = !declare_arrests
 			. = TRUE
 
-/mob/living/bot/secbot/emag_act(var/remaining_uses, var/mob/user)
+/mob/living/simple_mob/bot/secbot/emag_act(var/remaining_uses, var/mob/user)
 	. = ..()
 	if(!emagged)
 		if(user)
@@ -176,13 +176,13 @@
 	else
 		to_chat(user, "<span class='notice'>\The [src] is already corrupt.</span>")
 
-/mob/living/bot/secbot/attackby(var/obj/item/O, var/mob/user)
+/mob/living/simple_mob/bot/secbot/attackby(var/obj/item/O, var/mob/user)
 	var/curhealth = health
 	. = ..()
 	if(health < curhealth && on == TRUE)
 		react_to_attack(user)
 
-/mob/living/bot/secbot/bullet_act(var/obj/item/projectile/P)
+/mob/living/simple_mob/bot/secbot/bullet_act(var/obj/item/projectile/P)
 	var/curhealth = health
 	var/mob/shooter = P.firer
 	. = ..()
@@ -190,12 +190,12 @@
 	if(!target && health < curhealth && shooter && (shooter in view(world.view, src)))
 		react_to_attack(shooter)
 
-/mob/living/bot/secbot/attack_generic(var/mob/attacker)
+/mob/living/simple_mob/bot/secbot/attack_generic(var/mob/attacker)
 	if(attacker)
 		react_to_attack(attacker)
 	..()
 
-/mob/living/bot/secbot/proc/react_to_attack(mob/attacker)
+/mob/living/simple_mob/bot/secbot/proc/react_to_attack(mob/attacker)
 	if(!on || !retaliates)		// We don't want it to react if it's off or doesn't care
 		return
 
@@ -206,41 +206,41 @@
 	attacked = TRUE
 
 // Say "freeze!" and demand surrender
-/mob/living/bot/secbot/proc/demand_surrender(mob/target, var/threat)
+/mob/living/simple_mob/bot/secbot/proc/demand_surrender(mob/target, var/threat)
 	var/suspect_name = target_name(target)
 	if(declare_arrests)
 		global_announcer.autosay("[src] is [arrest_type ? "detaining" : "arresting"] a level [threat] suspect <b>[suspect_name]</b> in <b>[get_area(src)]</b>.", "[src]", "Security")
 	say("Down on the floor, [suspect_name]! You have [SECBOT_WAIT_TIME*2] seconds to comply.")
 	playsound(src, pick(preparing_arrest_sounds), 50)
 	// Register to be told when the target moves
-	GLOB.moved_event.register(target, src, /mob/living/bot/secbot/proc/target_moved)
+	GLOB.moved_event.register(target, src, /mob/living/simple_mob/bot/secbot/proc/target_moved)
 
 // Callback invoked if the registered target moves
-/mob/living/bot/secbot/proc/target_moved(atom/movable/moving_instance, atom/old_loc, atom/new_loc)
+/mob/living/simple_mob/bot/secbot/proc/target_moved(atom/movable/moving_instance, atom/old_loc, atom/new_loc)
 	if(get_dist(get_turf(src), get_turf(target)) >= 1)
 		awaiting_surrender = INFINITY	// Done waiting!
 		GLOB.moved_event.unregister(moving_instance, src)
 
-/mob/living/bot/secbot/resetTarget()
+/mob/living/simple_mob/bot/secbot/resetTarget()
 	..()
 	GLOB.moved_event.unregister(target, src)
 	awaiting_surrender = 0
 	attacked = FALSE
 	walk_to(src, 0)
 
-/mob/living/bot/secbot/startPatrol()
+/mob/living/simple_mob/bot/secbot/startPatrol()
 	if(!locked) // Stop running away when we set you up
 		return
 	..()
 
-/mob/living/bot/secbot/confirmTarget(var/atom/A)
+/mob/living/simple_mob/bot/secbot/confirmTarget(var/atom/A)
 	if(!..())
 		return FALSE
 	check_threat(A)
 	if(threat >= SECBOT_THREAT_ARREST)
 		return TRUE
 
-/mob/living/bot/secbot/lookForTargets()
+/mob/living/simple_mob/bot/secbot/lookForTargets()
 	for(var/mob/living/M in view(src))
 		if(M.stat == DEAD)
 			continue
@@ -252,7 +252,7 @@
 			playsound(src, pick(threat_found_sounds), 50)
 			return
 
-/mob/living/bot/secbot/handleAdjacentTarget()
+/mob/living/simple_mob/bot/secbot/handleAdjacentTarget()
 	var/mob/living/carbon/human/H = target
 	check_threat(target)
 	if(awaiting_surrender < SECBOT_WAIT_TIME && istype(H) && !H.lying && threat < SECBOT_THREAT_ATTACK)
@@ -267,7 +267,7 @@
 			global_announcer.autosay("[src] is [action] a level [threat] [action != "fighting" ? "suspect" : "threat"] <b>[target_name(target)]</b> in <b>[get_area(src)]</b>.", "[src]", "Security")
 		UnarmedAttack(target)
 
-/mob/living/bot/secbot/handlePanic()	// Speed modification based on alert level.
+/mob/living/simple_mob/bot/secbot/handlePanic()	// Speed modification based on alert level.
 	. = 0
 	switch(get_security_level())
 		if("green")
@@ -294,7 +294,7 @@
 	return .
 
 // So Beepsky talks while beating up simple mobs.
-/mob/living/bot/secbot/proc/insult(var/mob/living/L)
+/mob/living/simple_mob/bot/secbot/proc/insult(var/mob/living/L)
 	if(can_next_insult > world.time)
 		return
 	if(threat >= 10)
@@ -305,7 +305,7 @@
 		can_next_insult = world.time + 5 SECONDS
 
 
-/mob/living/bot/secbot/UnarmedAttack(var/mob/M, var/proximity)
+/mob/living/simple_mob/bot/secbot/UnarmedAttack(var/mob/M, var/proximity)
 	if(!..())
 		return
 
@@ -354,14 +354,14 @@
 		visible_message("<span class='warning'>\The [M] was beaten by \the [src] with a stun baton!</span>")
 		insult(L)
 
-/mob/living/bot/secbot/slime/UnarmedAttack(var/mob/living/L, var/proximity)
+/mob/living/simple_mob/bot/secbot/slime/UnarmedAttack(var/mob/living/L, var/proximity)
 	..()
 
 	if(istype(L, /mob/living/simple_mob/slime/xenobio))
 		var/mob/living/simple_mob/slime/xenobio/S = L
 		S.slimebatoned(src, xeno_stun_strength)
 
-/mob/living/bot/secbot/explode()
+/mob/living/simple_mob/bot/secbot/explode()
 	visible_message("<span class='warning'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
@@ -382,13 +382,13 @@
 	//qdel(src)
 	return ..()
 
-/mob/living/bot/secbot/proc/target_name(mob/living/T)
+/mob/living/simple_mob/bot/secbot/proc/target_name(mob/living/T)
 	if(ishuman(T))
 		var/mob/living/carbon/human/H = T
 		return H.get_id_name("unidentified person")
 	return "unidentified lifeform"
 
-/mob/living/bot/secbot/proc/check_threat(var/mob/living/M)
+/mob/living/simple_mob/bot/secbot/proc/check_threat(var/mob/living/M)
 	if(!M || !istype(M) || M.stat == DEAD || src == M)
 		threat = 0
 
@@ -463,10 +463,10 @@
 		user.drop_item()
 		to_chat(user, "You complete the Securitron! Beep boop.")
 		if(istype(W, /obj/item/weapon/melee/baton/slime))
-			var/mob/living/bot/secbot/slime/S = new /mob/living/bot/secbot/slime(get_turf(src))
+			var/mob/living/simple_mob/bot/secbot/slime/S = new /mob/living/simple_mob/bot/secbot/slime(get_turf(src))
 			S.name = created_name
 		else
-			var/mob/living/bot/secbot/S = new /mob/living/bot/secbot(get_turf(src))
+			var/mob/living/simple_mob/bot/secbot/S = new /mob/living/simple_mob/bot/secbot(get_turf(src))
 			S.name = created_name
 		qdel(W)
 		qdel(src)

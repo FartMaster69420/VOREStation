@@ -1,4 +1,4 @@
-/mob/living/bot
+/mob/living/simple_mob/bot
 	no_vore = TRUE
 	devourable = FALSE
 	feeding = FALSE

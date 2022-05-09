@@ -4,7 +4,7 @@
 // Therefore that functionality is disabled for now.  But it can be turned on by uncommenting this.
 // #define FLOORBOT_PATCHES_HOLES 1
 
-/mob/living/bot/floorbot
+/mob/living/simple_mob/bot/floorbot
 	name = "Floorbot"
 	desc = "A little floor repairing robot, it looks so excited!"
 	icon_state = "floorbot0"
@@ -22,7 +22,7 @@
 	var/targetdirection = null
 	var/floor_build_type = /decl/flooring/tiling // Basic steel floor.
 
-/mob/living/bot/floorbot/update_icons()
+/mob/living/simple_mob/bot/floorbot/update_icons()
 	if(busy)
 		icon_state = "floorbot-c"
 	else if(amount > 0)
@@ -30,13 +30,13 @@
 	else
 		icon_state = "floorbot[on]e"
 
-/mob/living/bot/floorbot/tgui_interact(mob/user, datum/tgui/ui)
+/mob/living/simple_mob/bot/floorbot/tgui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Floorbot", name)
 		ui.open()
 
-/mob/living/bot/floorbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/floorbot/tgui_data(mob/user, datum/tgui/ui, datum/tgui_state/state)
 	var/list/data = ..()
 
 	data["on"] = on
@@ -60,10 +60,10 @@
 		data["bmode"] = dir2text(targetdirection)
 	return data
 
-/mob/living/bot/floorbot/attack_hand(var/mob/user)
+/mob/living/simple_mob/bot/floorbot/attack_hand(var/mob/user)
 	tgui_interact(user)
 
-/mob/living/bot/floorbot/emag_act(var/remaining_charges, var/mob/user)
+/mob/living/simple_mob/bot/floorbot/emag_act(var/remaining_charges, var/mob/user)
 	. = ..()
 	if(!emagged)
 		emagged = 1
@@ -72,7 +72,7 @@
 			playsound(src, 'sound/machines/buzzbeep.ogg', 50, 0)
 		return 1
 
-/mob/living/bot/floorbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/mob/living/simple_mob/bot/floorbot/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	if(..())
 		return TRUE
 
@@ -106,7 +106,7 @@
 			targetdirection = text2dir(params["dir"])
 			. = TRUE
 
-/mob/living/bot/floorbot/handleRegular()
+/mob/living/simple_mob/bot/floorbot/handleRegular()
 	++tilemake
 	if(tilemake >= 100)
 		tilemake = 0
@@ -116,11 +116,11 @@
 		custom_emote(2, "makes an excited beeping sound!")
 		playsound(src, 'sound/machines/twobeep.ogg', 50, 0)
 
-/mob/living/bot/floorbot/handleAdjacentTarget()
+/mob/living/simple_mob/bot/floorbot/handleAdjacentTarget()
 	if(get_turf(target) == src.loc)
 		UnarmedAttack(target)
 
-/mob/living/bot/floorbot/lookForTargets()
+/mob/living/simple_mob/bot/floorbot/lookForTargets()
 	if(emagged) // Time to griff
 		for(var/turf/simulated/floor/D in view(src))
 			if(confirmTarget(D))
@@ -160,7 +160,7 @@
 				target = S
 				return
 
-/mob/living/bot/floorbot/confirmTarget(var/atom/A) // The fact that we do some checks twice may seem confusing but remember that the bot's settings may be toggled while it's moving and we want them to stop in that case
+/mob/living/simple_mob/bot/floorbot/confirmTarget(var/atom/A) // The fact that we do some checks twice may seem confusing but remember that the bot's settings may be toggled while it's moving and we want them to stop in that case
 	if(!..())
 		return 0
 
@@ -193,7 +193,7 @@
 	var/turf/simulated/floor/T = A
 	return (istype(T) && (T.broken || T.burnt || (improvefloors && !T.flooring)) && (get_turf(T) == loc || prob(40)))
 
-/mob/living/bot/floorbot/UnarmedAttack(var/atom/A, var/proximity)
+/mob/living/simple_mob/bot/floorbot/UnarmedAttack(var/atom/A, var/proximity)
 	if(!..())
 		return
 
@@ -287,7 +287,7 @@
 					M.use(1)
 					addTiles(4)
 
-/mob/living/bot/floorbot/explode()
+/mob/living/simple_mob/bot/floorbot/explode()
 	turn_off()
 	visible_message("<span class='danger'>\The [src] blows apart!</span>")
 	playsound(src, "sparks", 50, 1)
@@ -305,14 +305,14 @@
 	//qdel(src)
 	return ..()
 
-/mob/living/bot/floorbot/proc/addTiles(var/am)
+/mob/living/simple_mob/bot/floorbot/proc/addTiles(var/am)
 	amount += am
 	if(amount < 0)
 		amount = 0
 	else if(amount > maxAmount)
 		amount = maxAmount
 
-/mob/living/bot/floorbot/handlePanic()	// Speed modification based on alert level.
+/mob/living/simple_mob/bot/floorbot/handlePanic()	// Speed modification based on alert level.
 	. = 0
 	switch(get_security_level())
 		if("green")
@@ -406,7 +406,7 @@
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm) || (istype(W, /obj/item/organ/external/arm) && ((W.name == "robotic right arm") || (W.name == "robotic left arm"))))
 		qdel(W)
 		var/turf/T = get_turf(user.loc)
-		var/mob/living/bot/floorbot/A = new /mob/living/bot/floorbot(T)
+		var/mob/living/simple_mob/bot/floorbot/A = new /mob/living/simple_mob/bot/floorbot(T)
 		A.name = created_name
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly! Boop beep!</span>")
 		user.drop_from_inventory(src)

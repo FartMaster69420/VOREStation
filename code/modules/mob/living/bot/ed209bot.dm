@@ -1,4 +1,4 @@
-/mob/living/bot/secbot/ed209
+/mob/living/simple_mob/bot/secbot/ed209
 	name = "ED-209 Security Robot"
 	desc = "A security robot.  He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
@@ -20,13 +20,13 @@
 	var/shot_delay = 4
 	var/last_shot = 0
 
-/mob/living/bot/secbot/ed209/update_icons()
+/mob/living/simple_mob/bot/secbot/ed209/update_icons()
 	if(on && busy)
 		icon_state = "ed209-c"
 	else
 		icon_state = "ed209[on]"
 
-/mob/living/bot/secbot/ed209/explode()
+/mob/living/simple_mob/bot/secbot/ed209/explode()
 	visible_message("<span class='warning'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
@@ -51,10 +51,10 @@
 	new /obj/effect/decal/cleanable/blood/oil(Tsec)
 	return ..()
 
-/mob/living/bot/secbot/ed209/handleRangedTarget()
+/mob/living/simple_mob/bot/secbot/ed209/handleRangedTarget()
 	RangedAttack(target)
 
-/mob/living/bot/secbot/ed209/RangedAttack(var/atom/A)
+/mob/living/simple_mob/bot/secbot/ed209/RangedAttack(var/atom/A)
 	if(last_shot + shot_delay > world.time)
 		to_chat(src, "You are not ready to fire yet!")
 		return
@@ -203,7 +203,7 @@
 				build_step++
 				to_chat(user, "<span class='notice'>You complete the ED-209.</span>")
 				var/turf/T = get_turf(src)
-				var/mob/living/bot/secbot/ed209/S = new /mob/living/bot/secbot/ed209(T)
+				var/mob/living/simple_mob/bot/secbot/ed209/S = new /mob/living/simple_mob/bot/secbot/ed209(T)
 				S.name = created_name
 				user.drop_item()
 				qdel(W)
