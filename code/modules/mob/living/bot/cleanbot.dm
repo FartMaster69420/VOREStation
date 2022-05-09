@@ -99,7 +99,7 @@
 	if(get_turf(target) == src.loc)
 		UnarmedAttack(target)
 
-/mob/living/simple_mob/bot/cleanbot/UnarmedAttack(var/atom/D, var/proximity)
+/mob/living/simple_mob/bot/cleanbot/UnarmedAttack(atom/D, var/proximity)
 	if(!..())
 		return
 

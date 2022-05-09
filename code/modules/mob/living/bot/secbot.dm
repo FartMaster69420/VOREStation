@@ -48,7 +48,8 @@
 					pull_allowed = TRUE
 			if(!pull_allowed)
 				var/mob/living/L = pulledby
-				UnarmedAttack(L)
+				//UnarmedAttack(L)
+				apply_attack(L)
 				say("Do not interfere with active law enforcement routines!")
 				global_announcer.autosay("[src] was interfered with in <b>[get_area(src)]</b>, activating defense routines.", "[src]", "Security")
 //VOREStation Add End
@@ -265,7 +266,8 @@
 			if(!ishuman(target))
 				action = "fighting"
 			global_announcer.autosay("[src] is [action] a level [threat] [action != "fighting" ? "suspect" : "threat"] <b>[target_name(target)]</b> in <b>[get_area(src)]</b>.", "[src]", "Security")
-		UnarmedAttack(target)
+		//UnarmedAttack(target)
+		apply_attack(target)
 
 /mob/living/simple_mob/bot/secbot/handlePanic()	// Speed modification based on alert level.
 	. = 0
@@ -305,10 +307,8 @@
 		can_next_insult = world.time + 5 SECONDS
 
 
-/mob/living/simple_mob/bot/secbot/UnarmedAttack(var/mob/M, var/proximity)
-	if(!..())
-		return
-
+///mob/living/simple_mob/bot/secbot/UnarmedAttack(var/mob/M, var/proximity)
+mob/living/simple_mob/bot/secbot/apply_attack(var/mob/M)
 	if(!istype(M))
 		return
 
@@ -354,7 +354,8 @@
 		visible_message("<span class='warning'>\The [M] was beaten by \the [src] with a stun baton!</span>")
 		insult(L)
 
-/mob/living/simple_mob/bot/secbot/slime/UnarmedAttack(var/mob/living/L, var/proximity)
+///mob/living/simple_mob/bot/secbot/slime/UnarmedAttack(var/mob/living/L, var/proximity)
+/mob/living/simple_mob/bot/secbot/slime/apply_attack(var/mob/living/L)
 	..()
 
 	if(istype(L, /mob/living/simple_mob/slime/xenobio))
